@@ -1,0 +1,15 @@
+{
+  "name": "firmory-plugins",
+  "owner": {
+    "name": "Firmory"
+  },
+  "metadata": {
+    "description": "Ask Firmory about the files, versions, and sources behind your team’s AI work."
+  },
+  "plugins": [
+    {
+      "name": "ask-firmory",
+      "source": "./plugins/ask-firmory"
+    }
+  ]
+}

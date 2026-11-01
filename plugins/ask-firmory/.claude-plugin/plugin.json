@@ -1,0 +1,23 @@
+{
+  "name": "ask-firmory",
+  "version": "0.2.0-alpha.1",
+  "description": "Ask Firmory about the files, versions, and sources behind your team’s AI work.",
+  "author": {
+    "name": "Firmory",
+    "url": "https://firmory.ai",
+    "email": "contact@firmory.ai"
+  },
+  "homepage": "https://firmory.ai",
+  "keywords": [
+    "firmory",
+    "team-workspace",
+    "files",
+    "versions",
+    "sources"
+  ],
+  "displayName": "Firmory",
+  "supportUrl": "https://firmory.ai/#faq",
+  "privacyPolicyUrl": "https://firmory.ai/privacy",
+  "termsOfServiceUrl": "https://firmory.ai/terms",
+  "repository": "https://github.com/DepsilonAI/firmory-plugins"
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ask-firmory",
+  "version": "0.2.0-alpha.1",
+  "description": "Ask Firmory about the files, versions, and sources behind your team’s AI work.",
+  "author": {
+    "name": "Firmory",
+    "url": "https://firmory.ai",
+    "email": "contact@firmory.ai"
+  },
+  "homepage": "https://firmory.ai",
+  "keywords": [
+    "firmory",
+    "team-workspace",
+    "files",
+    "versions",
+    "sources"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Firmory",
+        "shortDescription": "Build on your team’s AI work",
+        "longDescription": "Pick up where a teammate left off. Ask which files changed this week, which version of a brief a report was based on, or which proposals used it next. Firmory’s agent answers from the file history and source relationships recorded in your connected workspace. Continue the same conversation on the web in Ask Firmory.",
+        "developerName": "Firmory",
+        "category": "Productivity",
+        "capabilities": [
+          "Find project updates",
+          "Trace file versions",
+          "Continue in Ask Firmory"
+        ],
+        "websiteURL": "https://firmory.ai",
+        "supportURL": "https://firmory.ai/#faq",
+        "privacyPolicyURL": "https://firmory.ai/privacy",
+        "termsOfServiceURL": "https://firmory.ai/terms",
+        "brandColor": "#3352E4",
+        "logo": "./assets/logo-blue.png",
+        "composerIcon": "./assets/composer-blue.png",
+        "defaultPrompt": [
+          "Which files did my team update this week?",
+          "Help me check which version of the brief a report was based on.",
+          "I’m revising a spec. Which documents were built from its current version?"
+        ]
+      },
+      "onboardingSkill": "./skills/setup/SKILL.md",
+      "publication": {
+        "translations": {
+          "zh-TW": {
+            "subtitle": "接續團隊的 AI 成果",
+            "description": "接手同事的工作時，問 Firmory 這週更新了哪些文件、一份報告是根據哪一版需求寫的，或有哪些提案沿用了那份資料。Firmory 的 Agent 會依照團隊工作空間記錄的檔案、版本和來源關係回答。想繼續追問，可以在網頁版 Ask Firmory 接著同一段對話。"
+          }
+        }
+      }
+    }
+  },
+  "repository": "https://github.com/DepsilonAI/firmory-plugins"
+}
