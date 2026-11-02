@@ -71,9 +71,15 @@ def build(env, release_version, destination):
     marketplace.update({k: (ROOT / k).read_bytes() for k in CATALOGS})
     marketplace['README.md'] = common['README.md']
     # The upload accepts OAuth metadata that the Codex marketplace loader rejects.
-    configs['mcp.json']['mcpServers']['firmory_cloud']['extensions'] = {'com.openai': {'auth': {'type': 'oauth'}}}
+    configs['mcp.json']['mcpServers']['firmory_cloud']['extensions'] = {
+        'com.openai': {'auth': {'type': 'oauth', 'client': {'mode': 'cimd'}}}
+    }
     upload = {**common, 'mcp.json': json_bytes(configs['mcp.json'])}
     if env == 'production':
+        openai = portable['extensions']['com.openai']
+        openai['review'] = {'test_cases': json.loads((ROOT / 'docs/openai-test-cases.json').read_text(encoding='utf-8'))}
+        openai['publication']['release_notes'] = f'Firmory {release_version} connects to the production Firmory workspace to find projects and files and trace upstream sources and downstream documents by version.'
+        upload['plugin.json'] = json_bytes(portable)
         for name, data in {**marketplace, **upload}.items():
             if not name.endswith('.png') and any(x in data.lower() for x in (b'preview.firmory.ai', b'clerk.accounts.dev')):
                 raise ValueError(f'Development host found in {name}')
