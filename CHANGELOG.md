@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.0 — first production package
+
+- Install as `firmory@firmory-plugins` in Codex and Claude Code. The package connects to the production Firmory workspace.
+- Update the English and Chinese store listings and declare interactive, read, and write capabilities.
+
 ## 0.2.0-alpha.3 — preview
 
 - Verify the connected team with `workspace` and use the cloud tool schemas for project discovery and file lineage.

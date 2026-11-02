@@ -1,22 +1,22 @@
-<p align="center"><img src="plugins/ask-firmory/assets/logo-blue.png" alt="Firmory" width="88" height="88"></p>
+<p align="center"><img src="plugins/firmory/assets/logo-blue.png" alt="Firmory" width="88" height="88"></p>
 
 # Firmory
 
-**Build on your team’s AI work.**
+**Build on shared digital assets**
 
-Connect Codex or Claude Code to your Firmory preview workspace. Find a project, pick a file, and trace the versions recorded as its sources.
+Connect Codex or Claude Code to your Firmory workspace. Find a project, pick a file, and trace the versions recorded as its sources.
 
 English · [繁體中文](README.zh-TW.md)
 
 [Website](https://firmory.ai/) · [Installation guide](docs/installation.md) · [Changelog](CHANGELOG.md) · [Report a problem](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-**Cloud preview · 0.2.0-alpha.3** · [MCP endpoint](https://preview.firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
+**Version 1.0.0** · [MCP endpoint](https://firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
 
 ## Codex
 
 ```sh
 codex plugin marketplace add DepsilonAI/firmory-plugins
-codex plugin add ask-firmory@firmory-plugins
+codex plugin add firmory@firmory-plugins
 codex mcp login firmory_cloud --scopes user:org:read
 ```
 
@@ -26,10 +26,10 @@ Complete sign-in in the browser. Open a new chat and run Firmory setup to confir
 
 ```sh
 claude plugin marketplace add DepsilonAI/firmory-plugins
-claude plugin install ask-firmory@firmory-plugins
+claude plugin install firmory@firmory-plugins
 ```
 
-Start a new session. Use `/mcp` to authenticate the Firmory cloud connection, then run `/ask-firmory:setup`. Access requires a Firmory preview account with team access. No local Firmory CLI is needed.
+Start a new session. Use `/mcp` to authenticate the Firmory cloud connection, then run `/firmory:setup`. Access requires a Firmory account with team access. No local Firmory CLI is needed.
 
 ## Start a conversation
 
@@ -41,14 +41,14 @@ Firmory returns records visible to your team. You can follow up about a file or 
 
 ## Data and access
 
-The host sends the arguments needed for each tool call to Firmory, such as a search term or file and version identifiers. Firmory controls which tools and records the account can access. The lookup workflow does not submit changes to answer questions. Never paste credentials into a chat or issue. See the [plugin description](plugins/ask-firmory/README.md), [privacy policy](https://firmory.ai/privacy), and [terms](https://firmory.ai/terms).
+The host sends the arguments needed for each tool call to Firmory, such as a search term or file and version identifiers. Firmory controls which tools and records the account can access. The lookup workflow does not submit changes to answer questions. Never paste credentials into a chat or issue. See the [plugin description](plugins/firmory/README.md), [privacy policy](https://firmory.ai/privacy), and [terms](https://firmory.ai/terms).
 
 ## Repository layout
 
 ```text
 .agents/plugins/marketplace.json       Codex catalog
 .claude-plugin/marketplace.json        Claude Code catalog
-plugins/ask-firmory/
+plugins/firmory/
   plugin.json                         Portable manifest + OpenAI presentation
   mcp.json                            Portable remote MCP configuration
   .claude-plugin/plugin.json           Claude manifest

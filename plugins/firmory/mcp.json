@@ -3,7 +3,7 @@
   "mcpServers": {
     "firmory_cloud": {
       "type": "streamable-http",
-      "url": "https://preview.firmory.ai/mcp"
+      "url": "https://firmory.ai/mcp"
     }
   }
 }

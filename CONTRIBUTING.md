@@ -10,7 +10,7 @@ Search existing issues, then describe the client and plugin versions, reproducti
 
 Keep changes focused on installation, documentation, compatibility, or the existing Firmory workflows. Explain the problem and how you verified the change. Keep English and Traditional Chinese README status and installation instructions aligned.
 
-Both platform manifests must describe the same version and functionality. Keep everything required at runtime inside `plugins/ask-firmory/`; installed clients may not receive root-level documentation. Do not add real workspace data, credentials, private service URLs, or developer machine paths.
+Both platform manifests must describe the same version and functionality. Keep everything required at runtime inside `plugins/firmory/`; installed clients may not receive root-level documentation. Do not add real workspace data, credentials, private service URLs, or developer machine paths.
 
 The distribution license is pending. Discuss substantive code or asset contributions with the maintainers before submitting them. Do not add third-party content without establishing its rights and attribution.
 
