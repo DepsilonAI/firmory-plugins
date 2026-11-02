@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ask-firmory",
-  "version": "0.2.0-alpha.2",
+  "version": "0.2.0-alpha.3",
   "description": "Ask Firmory about the files, versions, and sources behind your team’s AI work.",
   "author": {
     "name": "Firmory",
@@ -21,7 +21,7 @@
       "interface": {
         "displayName": "Firmory",
         "shortDescription": "Build on your team’s AI work",
-        "longDescription": "Connect your Firmory preview workspace to Codex or Claude Code. Ask where to find a team file, which version of a brief informed a report, or which documents use a specification. Answers use the tools and records available to your signed-in account.",
+        "longDescription": "Connect your Firmory workspace to Codex or Claude Code. Ask where to find a team file, which version of a brief informed a report, or which documents use a specification. Answers use the tools and records available to your signed-in account.",
         "developerName": "Firmory",
         "category": "Productivity",
         "capabilities": [
@@ -46,7 +46,7 @@
         "translations": {
           "zh-TW": {
             "subtitle": "接續團隊的 AI 成果",
-            "description": "連接 Firmory 預覽環境的團隊工作空間。你可以查找團隊檔案、追溯報告參考的需求版本，或查看哪些文件沿用了某份規格。回答以登入帳號可用的工具和紀錄為準。"
+            "description": "連接 Firmory 的團隊工作空間。你可以查找團隊檔案、追溯報告參考的需求版本，或查看哪些文件沿用了某份規格。回答以登入帳號可用的工具和紀錄為準。"
           }
         }
       }

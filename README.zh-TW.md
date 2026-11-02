@@ -10,7 +10,7 @@
 
 [官網](https://firmory.ai/) · [安裝指南（英文）](docs/installation.md) · [版本紀錄（英文）](CHANGELOG.md) · [回報問題](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-**雲端預覽版 · 0.2.0-alpha.2** · [MCP 端點](https://preview.firmory.ai/mcp)。套件由 Firmory 自有的 marketplace 提供。
+**雲端預覽版 · 0.2.0-alpha.3** · [MCP 端點](https://preview.firmory.ai/mcp)。套件由 Firmory 自有的 marketplace 提供。
 
 ## Codex
 
@@ -37,7 +37,7 @@ claude plugin install ask-firmory@firmory-plugins
 - 幫我查一份報告是根據哪一版需求寫的。
 - 我準備更新一份規格。哪些文件是根據它目前這一版做的？
 
-回答以登入後服務提供的工具與可查到的紀錄為準。在網頁版 Ask Firmory 接續同一段對話，需要服務回傳該對話的連結；若只有客戶端對話，請在原對話繼續。
+Firmory 會傳回團隊有權查看的紀錄。若想追問某份文件或某個版本，可在同一個 Codex 或 Claude Code 對話繼續。
 
 ## 資料如何使用
 

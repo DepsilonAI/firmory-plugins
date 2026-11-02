@@ -23,33 +23,25 @@ Then test installation from a disposable client profile: register the local repo
 
 Record the client versions and exact commands in the pull request. There is currently no automated CI workflow in this repository; do not treat a missing check as a pass. The Claude CLI checks package structure, not all directory requirements or cloud behavior.
 
-## Release requirements
+## Build and promote
 
-Before describing the integration as usable:
+`main` installs the preview plugin at `https://preview.firmory.ai/mcp`. Build preview archives with Python 3 from the repository root.
 
-- From each installed client, verify browser authorization, authenticated MCP initialization, tool discovery, and a successful workspace query against `https://preview.firmory.ai/mcp`. A 401 challenge or metadata response alone is not an end-to-end pass.
-- Verify workspace discovery, team switching, expired authorization, and access revocation.
-- Verify file/version answers against known data and preserve the question across connection recovery.
-- Verify that retries do not create duplicate conversations and that web handoff continues the correct private conversation.
-- Verify that another user or team cannot access that conversation through its URL.
-- Confirm data-handling and listing statements match deployed behavior.
+```sh
+python3 scripts/build_distribution.py
+```
 
-Before directory submission:
+At submission time, choose a new stable version and run the production build. For example, to package version 0.2.0, run the following command.
 
-- Select the distribution license and include the required license metadata or file inside the plugin package. Review brand asset rights separately.
-- Prepare a populated review account and reproducible cases without exposing customer data.
-- Validate the package in each developer portal; resolve blocking findings.
-- Complete publisher identity requirements and submit separately to OpenAI and Anthropic.
+```sh
+python3 scripts/build_distribution.py --env production --release-version 0.2.0
+```
 
-## Versions and artifacts
+`dist/` contains two archives identified by version and environment. The OpenAI ZIP carries the portable manifest and OAuth declaration. The marketplace ZIP contains both catalogs, both client manifests, shared skills, and the plugin README. Production builds set every MCP configuration to `https://firmory.ai/mcp`. The builder checks packaged text for preview hosts and keeps the source checkout on preview.
 
-For installed-package changes, update both manifests to the same new version and add a changelog entry. Root documentation-only edits do not require a plugin version bump.
+Test the **extracted production marketplace** in clean Codex and Claude Code profiles. Confirm that the challenge advertises production OAuth metadata and that each authorized client can call `workspace({})`. Use the returned root to list visible projects. With review fixtures, check a report’s declared source version and a specification’s downstream graph. Verify the correct team and file versions against the fixture records.
 
-After validation, tag the reviewed commit and publish release notes that distinguish working functionality from pending features. Build submission artifacts from that exact commit and record their checksums. Review the extracted archive, including hidden manifests, to ensure that every runtime path resolves and no credentials, system files, or development caches are included.
-
-The marketplace package and the OpenAI portal upload have different MCP metadata requirements in the current tested clients. Preserve the portable runtime configuration used here; the tested Codex loader rejected portal-specific `extensions` on remote server entries. Verify any portal-only OAuth metadata against the current submission specification and keep it out of the marketplace runtime copy unless compatibility has been retested.
-
-The upload builder is not yet distributed in this repository. Moving it here with package consistency checks and CI is a remaining maintenance improvement; a GitHub release must not imply reproducible portal artifacts until that work is complete.
+After those checks pass, publish the extracted marketplace tree to a dedicated release branch or tag in this repository and point Anthropic at its `plugins/ask-firmory` folder on that ref. Upload the matching production OpenAI ZIP. Record the source commit, published ref and artifact checksums. Confirm the package license, reviewer account, and publisher identity before submitting.
 
 ## References
 

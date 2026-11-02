@@ -1,14 +1,12 @@
 ---
 name: setup
-description: Connect or reconnect the Firmory preview workspace and confirm the authorized team.
+description: Connect Firmory and confirm which team the current OAuth session can access.
 ---
 
 # Connect Firmory
 
-Use the host’s OAuth connection for this plugin’s `firmory_cloud` server at `https://preview.firmory.ai/mcp`. Let the user sign in and authorize in the browser. Never request a token, cookie, password, or callback URL in chat. Do not use a similarly named local or production server.
+Select this plugin’s `firmory_cloud` server. Use the client’s sign-in action and let the user choose their team on the Firmory consent screen. Keep passwords, verification codes, tokens and OAuth callbacks in that flow.
 
-After authorization, inspect the tools advertised by that connection. Use its read-only workspace discovery tool (such as `firmory_workspace` if listed), following the actual input schema. Report the team name only from a successful result. If there is no suitable tool, distinguish an authenticated transport from an unverified workspace. Never create an asset or conversation just to test a connection.
+Call `workspace` with `{}` on the authorized connection. Check `isError` before reading `structuredContent.team.name`. Only report that team as connected after a successful response. The call also returns `space.rootNodeId` and `space.teamLibraryNodeId` for browsing. Setup ends here. Offer “Which projects can I access in my Firmory workspace?” as a first question.
 
-If authorization is declined, stop. If the service rejects the session, reconnect through the host; if the wrong team is active, switch in Firmory and verify again. Keep the original question but discard IDs from the previous account or team.
-
-When the team is confirmed, offer: “Which projects can I access in my Firmory workspace?”
+If `workspace` is unavailable, report that the workspace could not be verified. On a declined authorization, stop. On an expired authorization, reconnect through the host. To switch teams, authorize the intended team, discard previous IDs and cursors, and call `workspace` again.

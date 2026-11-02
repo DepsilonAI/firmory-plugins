@@ -1,9 +1,7 @@
 # Firmory
 
-Connect Codex or Claude Code to your team’s Firmory preview workspace. Use Firmory setup, sign in through the client’s browser authorization flow, and check the connected team before asking about a project, file version, or source relationship. Claude Code users can run `/ask-firmory:setup` in a new session.
+Use Firmory in Codex or Claude Code to find the projects you can access, check which version of a brief informed a report, or follow a specification to documents that cite it. Run Firmory setup, sign in through the browser, and confirm the team name. Claude Code users can run `/ask-firmory:setup`.
 
-The plugin connects directly to `https://preview.firmory.ai/mcp` over Streamable HTTP. It does not require a local Firmory CLI. The client sends tool arguments, such as a search term or selected file version, to Firmory and receives results available to the signed-in account. The service supplies the tools and enforces access. The lookup skill does not change files to answer questions.
-
-A chat in the client does not by itself create a web conversation. Continue in Ask Firmory only when the service returns a link for the same conversation.
+The plugin connects to its configured `firmory_cloud` service over HTTPS. The host sends tool arguments such as search terms, file identifiers, and versions to Firmory. The service returns records available to the signed-in team. The lookup workflow uses read operations. Follow-up questions stay in the current client conversation.
 
 [Product](https://firmory.ai/) · [Support](https://firmory.ai/#faq) · [Privacy](https://firmory.ai/privacy) · [Terms](https://firmory.ai/terms)

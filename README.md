@@ -10,7 +10,7 @@ English · [繁體中文](README.zh-TW.md)
 
 [Website](https://firmory.ai/) · [Installation guide](docs/installation.md) · [Changelog](CHANGELOG.md) · [Report a problem](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-**Cloud preview · 0.2.0-alpha.2** · [MCP endpoint](https://preview.firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
+**Cloud preview · 0.2.0-alpha.3** · [MCP endpoint](https://preview.firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
 
 ## Codex
 
@@ -37,7 +37,7 @@ Start a new session. Use `/mcp` to authenticate the Firmory cloud connection, th
 - Help me check which version of the brief a report was based on.
 - I’m revising a spec. Which documents were built from its current version?
 
-The plugin uses the tools returned by the signed-in preview service. If a record is missing, the answer should say so. Opening the same chat in Ask Firmory on the web requires a conversation link returned by the server; the plugin does not create a web link for a client-only chat.
+Firmory returns records visible to your team. You can follow up about a file or version in the same Codex or Claude Code conversation.
 
 ## Data and access
 

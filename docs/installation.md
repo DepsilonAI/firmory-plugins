@@ -80,7 +80,7 @@ Start a new chat or session afterward. Removing the client plugin is separate fr
 | 401 or sign-in required | Authenticate the plugin connection with the intended preview account, then run setup. |
 | Client cannot register with the authorization server | Use a client with OAuth client ID metadata document (CIMD) support. The preview issuer advertises CIMD, not dynamic client registration. |
 | The URL is the old `api.firmory.ai` address or returns 404 | Update the marketplace and installed plugin, then check that `firmory_cloud` uses the preview URL above. |
-| No conversation link is returned | Continue in this client. A web handoff requires a link from the service for that exact conversation. |
+| How do I follow up about a file? | Continue in the same Codex or Claude Code chat and refer to the file and version. |
 | A newer package does not appear | Refresh the marketplace, update the plugin, then start a new session. |
 | A connection shows the wrong team | Switch accounts or teams in connection settings and run setup again; wait for the service to confirm the team. |
 

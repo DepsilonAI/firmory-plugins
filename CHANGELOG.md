@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0-alpha.3 — preview
+
+- Verify the connected team with `workspace` and use the cloud tool schemas for project discovery and file lineage.
+- Build separate preview and production distributions from the same plugin sources.
+
 ## 0.2.0-alpha.2 — cloud preview
 
 - Connect both clients to `https://preview.firmory.ai/mcp` through native OAuth.
