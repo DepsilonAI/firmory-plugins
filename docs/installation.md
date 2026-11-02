@@ -26,7 +26,7 @@ claude plugin list
 claude plugin details ask-firmory
 ```
 
-Expect the package `ask-firmory@firmory-plugins` and the `firmory` and `setup` skills. In a new session, use `/mcp` to select the plugin’s Firmory cloud server and authenticate, then run `/ask-firmory:setup`. Choose the plugin connection if a local Firmory server is also installed.
+Expect the package `ask-firmory@firmory-plugins` and the `firmory` and `setup` skills. In a new session, use `/mcp` to select the plugin’s Firmory cloud server and authenticate, then run `/ask-firmory:setup`. Choose the plugin connection if a local Firmory server is also installed. From the terminal, `claude mcp list` shows this connection as `plugin:ask-firmory:firmory_cloud`; `claude mcp login plugin:ask-firmory:firmory_cloud` starts its OAuth flow.
 
 ## Verify the installation
 
