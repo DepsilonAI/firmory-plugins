@@ -35,7 +35,7 @@ def archive(path, files):
     print(path)
 
 
-def build(env, release_version, destination):
+def build(env, release_version, destination, review_cases=None):
     portable = read_json('plugin.json')
     claude = read_json('.claude-plugin/plugin.json')
     if (portable['name'], portable['version']) != (claude['name'], claude['version']):
@@ -77,8 +77,19 @@ def build(env, release_version, destination):
     upload = {**common, 'mcp.json': json_bytes(configs['mcp.json'])}
     if env == 'production':
         openai = portable['extensions']['com.openai']
-        openai['review'] = {'test_cases': json.loads((ROOT / 'docs/openai-test-cases.json').read_text(encoding='utf-8'))}
-        openai['publication']['release_notes'] = f'Firmory {release_version} connects to the production Firmory workspace to find projects and files and trace upstream sources and downstream documents by version.'
+        if not review_cases:
+            raise ValueError('Production requires --review-cases pointing to the cases for the actual reviewer workspace')
+        cases = json.loads(review_cases.read_text(encoding='utf-8'))
+        if not isinstance(cases, dict) or set(cases) != {'positive', 'negative'}:
+            raise ValueError('Review cases must contain positive and negative lists')
+        for kind, count in [('positive', 5), ('negative', 3)]:
+            required = ('description', 'prompt') if kind == 'negative' else ('description', 'prompt', 'expected_behavior', 'tools_triggered')
+            if (not isinstance(cases[kind], list) or len(cases[kind]) != count or
+                    not all(isinstance(case, dict) and all(isinstance(case.get(k), str) and case[k].strip()
+                                for k in required) for case in cases[kind])):
+                raise ValueError(f'Expected {count} complete {kind} review cases')
+        openai['review'] = {'test_cases': cases}
+        openai['publication']['release_notes'] = f'Firmory {release_version} connects to your team workspace to compare file versions, trace references, summarize project briefings, and save or revise a checklist with its source versions.'
         upload['plugin.json'] = json_bytes(portable)
         for name, data in {**marketplace, **upload}.items():
             if not name.endswith('.png') and any(x in data.lower() for x in (b'preview.firmory.ai', b'clerk.accounts.dev')):
@@ -93,9 +104,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--env', choices=ENDPOINTS, default='preview')
     parser.add_argument('--release-version')
+    parser.add_argument('--review-cases', type=Path, help='JSON containing the production reviewer workspace test cases')
     parser.add_argument('--output-dir', type=Path, default=ROOT / 'dist')
     args = parser.parse_args()
     try:
-        build(args.env, args.release_version, args.output_dir)
-    except ValueError as error:
+        build(args.env, args.release_version, args.output_dir, args.review_cases)
+    except (ValueError, OSError) as error:
         parser.error(str(error))

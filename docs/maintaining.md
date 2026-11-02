@@ -34,7 +34,7 @@ python3 scripts/build_distribution.py
 At submission time, choose a new stable version and run the production build. For example, to package version 0.2.0, run the following command.
 
 ```sh
-python3 scripts/build_distribution.py --env production --release-version 0.2.0
+python3 scripts/build_distribution.py --env production --release-version 0.2.0 --review-cases /path/to/verified-review-cases.json
 ```
 
 `dist/` contains two archives identified by version and environment. The OpenAI ZIP carries the portable manifest and OAuth declaration. The marketplace ZIP contains both catalogs, both client manifests, shared skills, and the plugin README. Production builds set every MCP configuration to `https://firmory.ai/mcp`. The builder checks packaged text for preview hosts and keeps the source checkout on preview.
