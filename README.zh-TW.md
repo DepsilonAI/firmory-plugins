@@ -4,61 +4,44 @@
 
 **接續團隊的 AI 成果。**
 
-在 Codex 或 Claude Code 裡，查詢團隊檔案、版本與來源關係。Firmory 預計透過已連接的工作空間回答，並讓你在網頁版 Ask Firmory 接著同一段對話。
+在 Codex 或 Claude Code 連接 Firmory 預覽工作空間，尋找專案、選取文件，並追溯它使用的來源版本。
 
 [English](README.md) · 繁體中文
 
 [官網](https://firmory.ai/) · [安裝指南（英文）](docs/installation.md) · [版本紀錄（英文）](CHANGELOG.md) · [回報問題](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-> **設計預覽版 — 0.2.0-alpha.1。** 目前可安裝並檢視插件套件；雲端 MCP、OAuth 登入及網頁對話接續尚未開放，安裝後還不能查詢工作空間。這是 Firmory 自行管理的 marketplace，尚未通過 OpenAI 或 Anthropic 官方目錄審核。
+**雲端預覽版 · 0.2.0-alpha.2** · [MCP 端點](https://preview.firmory.ai/mcp)。套件由 Firmory 自有的 marketplace 提供。
 
-## 預計可以問什麼
-
-以下為預期使用情境，尚非已連通雲端服務的示範結果：
-
-- 我們團隊這週更新了哪些文件？
-- 幫我查一份報告是根據哪一版需求寫的。
-- 我準備更新一份規格。哪些文件是根據它目前這一版做的？
-
-## 安裝預覽版
-
-需要支援插件 marketplace 的 Codex 或 Claude Code。本套件不需要你啟動本機 MCP server，也不需要額外安裝 Node.js 或 Python。雲端功能開放後，需使用有團隊存取權限的 Firmory 帳號。
-
-### Codex
-
-在終端機執行：
+## Codex
 
 ```sh
 codex plugin marketplace add DepsilonAI/firmory-plugins
 codex plugin add ask-firmory@firmory-plugins
+codex mcp login firmory_cloud --scopes user:org:read
 ```
 
-安裝後開啟新的對話。顯示名稱為 **Firmory**，安裝識別名稱維持 `ask-firmory`。
+在瀏覽器完成登入與授權，再開新對話執行 Firmory 設定，確認連接的團隊。桌面版安裝方式見[安裝指南](docs/installation.md)。
 
-### Claude Code
-
-在終端機執行：
+## Claude Code
 
 ```sh
 claude plugin marketplace add DepsilonAI/firmory-plugins
 claude plugin install ask-firmory@firmory-plugins
 ```
 
-安裝後開啟新的 session。雲端功能發布後，在 Claude Code 輸入 `/ask-firmory:setup` 連接工作空間。
+開新對話，在 `/mcp` 選擇 Firmory 雲端連線並完成授權，再執行 `/ask-firmory:setup`。需要有團隊存取權限的 Firmory 預覽帳號，不需要安裝本機 Firmory CLI。
 
-桌面安裝、驗證、更新、移除與錯誤處理請見[安裝指南](docs/installation.md)。
+## 開始提問
 
-## 首次使用流程
+- 在 Firmory 工作空間裡，我能查看哪些專案？
+- 幫我查一份報告是根據哪一版需求寫的。
+- 我準備更新一份規格。哪些文件是根據它目前這一版做的？
 
-預計流程為：安裝 Firmory → 執行設定並登入 → 確認團隊 → 提問並查看版本參考 → 開啟 Ask Firmory 網頁接續同一段私人對話。
-
-目前只有套件安裝可用，後續連線與對話流程仍待完成。設定流程須成功查得已授權團隊後，才會回報連線成功。
+回答以登入後服務提供的工具與可查到的紀錄為準。在網頁版 Ask Firmory 接續同一段對話，需要服務回傳該對話的連結；若只有客戶端對話，請在原對話繼續。
 
 ## 資料如何使用
 
-預計會將問題與相關檔案、時區或對話上下文傳送至 Firmory。Firmory Agent 讀取你有權存取的工作空間紀錄，並儲存私人對話。提問不會修改工作空間檔案，但會產生對話資料。
-
-套件包含兩個 skills、品牌圖片與遠端 MCP 設定，沒有本機伺服器執行檔、安裝腳本或生命週期 hooks。登入憑證只應輸入於客戶端連線流程，不要貼到聊天或 GitHub issue。詳見[隱私政策](https://firmory.ai/privacy)與[服務條款](https://firmory.ai/terms)。
+客戶端會將本次工具呼叫需要的查詢文字、檔案或版本識別碼等參數傳送至 Firmory。可用工具與資料由服務端依帳號權限決定；查詢流程不會為了回答問題而修改檔案。不要把帳號憑證貼到聊天或 GitHub issue。詳見[隱私政策](https://firmory.ai/privacy)與[服務條款](https://firmory.ai/terms)。
 
 ## 協助與維護
 

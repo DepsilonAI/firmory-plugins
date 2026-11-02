@@ -6,7 +6,7 @@ labels: ''
 assignees: ''
 ---
 
-Cloud connectivity is not available in the current design preview. For security reports, use the private contact in SECURITY.md.
+For connection problems, indicate whether installation, browser authorization, or the first workspace query failed. For security reports, use the private contact in SECURITY.md.
 
 ## Environment
 

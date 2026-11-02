@@ -1,9 +1,9 @@
 # Firmory
 
-Firmory helps teams pick up each other’s AI work. Ask which files changed this week, trace a report to the version of a brief that informed it, or find which proposals used an earlier specification.
+Connect Codex or Claude Code to your team’s Firmory preview workspace. Use Firmory setup, sign in through the client’s browser authorization flow, and check the connected team before asking about a project, file version, or source relationship. Claude Code users can run `/ask-firmory:setup` in a new session.
 
-This preview contains two skills and a reference to Firmory’s remote MCP service. The service and its OAuth connection are in development. Once available, run the setup skill, sign in to Firmory, and choose the team you want to use.
+The plugin connects directly to `https://preview.firmory.ai/mcp` over Streamable HTTP. It does not require a local Firmory CLI. The client sends tool arguments, such as a search term or selected file version, to Firmory and receives results available to the signed-in account. The service supplies the tools and enforces access. The lookup skill does not change files to answer questions.
 
-Setup requests the authorized team’s name. When you ask a question, the plugin sends the question and relevant file, timezone, or conversation context to Firmory. Firmory’s agent queries accessible workspace history, saves the exchange in a private conversation, and returns the answer and available version references. Follow the Firmory conversation link to continue on the web.
+A chat in the client does not by itself create a web conversation. Continue in Ask Firmory only when the service returns a link for the same conversation.
 
 [Product](https://firmory.ai/) · [Support](https://firmory.ai/#faq) · [Privacy](https://firmory.ai/privacy) · [Terms](https://firmory.ai/terms)

@@ -27,7 +27,7 @@ Record the client versions and exact commands in the pull request. There is curr
 
 Before describing the integration as usable:
 
-- Complete Streamable HTTP MCP and OAuth sign-in in both clients.
+- From each installed client, verify browser authorization, authenticated MCP initialization, tool discovery, and a successful workspace query against `https://preview.firmory.ai/mcp`. A 401 challenge or metadata response alone is not an end-to-end pass.
 - Verify workspace discovery, team switching, expired authorization, and access revocation.
 - Verify file/version answers against known data and preserve the question across connection recovery.
 - Verify that retries do not create duplicate conversations and that web handoff continues the correct private conversation.

@@ -4,67 +4,44 @@
 
 **Build on your team’s AI work.**
 
-Ask about the files, versions, and sources behind your team’s work, from Codex or Claude Code. Firmory is designed to answer through your connected workspace and let you continue the conversation in Ask Firmory on the web.
+Connect Codex or Claude Code to your Firmory preview workspace. Find a project, pick a file, and trace the versions recorded as its sources.
 
 English · [繁體中文](README.zh-TW.md)
 
 [Website](https://firmory.ai/) · [Installation guide](docs/installation.md) · [Changelog](CHANGELOG.md) · [Report a problem](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-> **Design preview — 0.2.0-alpha.1.** The plugin package can be installed for inspection. Cloud MCP, OAuth sign-in, and web conversation handoff are not ready for use. Installing this preview does not yet enable workspace questions. This repository is a Firmory-managed marketplace; it is not an approved OpenAI or Anthropic directory listing.
+**Cloud preview · 0.2.0-alpha.2** · [MCP endpoint](https://preview.firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
 
-## What you will be able to ask
-
-These are intended use cases, not results from a working cloud integration:
-
-- Which files did my team update this week?
-- Help me check which version of the brief a report was based on.
-- I’m revising a spec. Which documents were built from its current version?
-
-## Install the preview
-
-Use a client version that supports plugin marketplaces. No local MCP server, Node.js, or Python runtime is required by this package. A Firmory account with access to a team will be required when cloud connectivity is available.
-
-### Codex
-
-Run in your terminal:
+## Codex
 
 ```sh
 codex plugin marketplace add DepsilonAI/firmory-plugins
 codex plugin add ask-firmory@firmory-plugins
+codex mcp login firmory_cloud --scopes user:org:read
 ```
 
-Start a new chat after installation. The display name is **Firmory**; its stable package identifier is `ask-firmory`.
+Complete sign-in in the browser. Open a new chat and run Firmory setup to confirm the connected team. To install from the app, see the [installation guide](docs/installation.md).
 
-### Claude Code
-
-Run in your terminal:
+## Claude Code
 
 ```sh
 claude plugin marketplace add DepsilonAI/firmory-plugins
 claude plugin install ask-firmory@firmory-plugins
 ```
 
-Start a new session after installation. Once cloud connectivity is released, run `/ask-firmory:setup` in Claude Code to connect your workspace.
+Start a new session. Use `/mcp` to authenticate the Firmory cloud connection, then run `/ask-firmory:setup`. Access requires a Firmory preview account with team access. No local Firmory CLI is needed.
 
-See the [installation guide](docs/installation.md) for the Codex app flow, verification, updates, removal, and troubleshooting.
+## Start a conversation
 
-## First-use flow
+- Which projects can I access in my Firmory workspace?
+- Help me check which version of the brief a report was based on.
+- I’m revising a spec. Which documents were built from its current version?
 
-The planned experience is:
-
-1. Install Firmory in your preferred client.
-2. Run Firmory setup and sign in through the client’s connection flow.
-3. Confirm the connected team.
-4. Ask a question and receive an answer with the available file-version references.
-5. Open the returned Ask Firmory link to continue the same private conversation on the web.
-
-Steps 2–5 require the pending cloud implementation. Setup must confirm the team through a successful service call before reporting that it is connected.
+The plugin uses the tools returned by the signed-in preview service. If a record is missing, the answer should say so. Opening the same chat in Ask Firmory on the web requires a conversation link returned by the server; the plugin does not create a web link for a client-only chat.
 
 ## Data and access
 
-The intended integration sends your question and relevant file, timezone, or conversation context to Firmory. Firmory’s agent reads accessible workspace history and stores the exchange in a private conversation. Asking a question can therefore create conversation data even though it does not edit workspace files.
-
-The package contains two skills, brand assets, and remote MCP configuration. It includes no local server executable, install script, or lifecycle hook. Sign-in credentials belong in the client’s connection flow, never in a chat or GitHub issue. See the [plugin description](plugins/ask-firmory/README.md), [privacy policy](https://firmory.ai/privacy), and [terms](https://firmory.ai/terms).
+The host sends the arguments needed for each tool call to Firmory, such as a search term or file and version identifiers. Firmory controls which tools and records the account can access. The lookup workflow does not submit changes to answer questions. Never paste credentials into a chat or issue. See the [plugin description](plugins/ask-firmory/README.md), [privacy policy](https://firmory.ai/privacy), and [terms](https://firmory.ai/terms).
 
 ## Repository layout
 

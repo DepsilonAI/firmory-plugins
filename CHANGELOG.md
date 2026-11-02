@@ -1,6 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.2.0-alpha.2 — cloud preview
+
+- Connect both clients to `https://preview.firmory.ai/mcp` through native OAuth.
+- Discover the signed-in service’s tools; remove the dependency on a proposed chat tool and guessed handoff format.
+- Update setup, prompts, and connection troubleshooting.
 
 ### Documentation
 
@@ -9,8 +13,6 @@
 - Add installation verification, update, removal, and troubleshooting guidance.
 - Add contribution and private security-reporting instructions, issue templates, and a pull request template.
 - Document package validation and the remaining release requirements.
-
-These are repository documentation changes. The installed plugin remains `0.2.0-alpha.1`.
 
 ## 0.2.0-alpha.1 — design preview
 
