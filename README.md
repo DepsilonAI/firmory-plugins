@@ -14,9 +14,9 @@ English · [繁體中文](README.zh-TW.md)
 
 ## ZIP downloads
 
-[Codex ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.0.1/firmory-1.0.1-codex.zip) · [Claude Code ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.0.1/firmory-1.0.1-claude-code.zip) · [Illustrated installation guide](https://firmory.ai/plugins)
+[Codex ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.0.1/firmory-1.0.1-codex.zip) · [Claude Code ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.0.1/firmory-1.0.1-claude-code.zip) · [Illustrated installation guide](https://firmory.ai/download#plugins)
 
-Extract the ZIP and follow its README. Or use the GitHub install commands below.
+Drag the Codex ZIP into **Customize → Plugins** without extracting it, or use the GitHub install commands below for Codex CLI. Extract the Claude Code ZIP and follow its README.
 
 ## Codex
 
