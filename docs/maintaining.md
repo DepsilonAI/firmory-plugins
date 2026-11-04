@@ -61,3 +61,5 @@ After those checks pass, publish the extracted marketplace tree to a dedicated r
 - [Claude directory pre-submission checks](https://claude.com/docs/plugins/pre-submission-checklist)
 
 The public Codex ZIP must contain one portable plugin at the archive root (`plugin.json`, `mcp.json`, `assets/`, and `skills/`), without marketplace catalogs or a `plugins/firmory` wrapper. Users drag this ZIP into Customize → Plugins. Claude Code retains its marketplace ZIP layout. Run `python3 -m unittest discover -s tests -v` before replacing release assets.
+
+Both the public Codex ZIP and the private OpenAI review ZIP include the same explicit OAuth declaration: CIMD with `user:org:read`. Public packages must not include reviewer materials. The source/CLI marketplace uses standard MCP OAuth discovery because the tested legacy loader rejects inline OpenAI authentication extensions. Keep the packaged skills, listing, and installation instructions in English.

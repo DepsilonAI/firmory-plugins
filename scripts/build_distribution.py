@@ -76,11 +76,14 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
         files = {k: v for k, v in marketplace.items() if k not in CATALOGS or k == catalog}
         files['README.md'] = (ROOT / f'docs/install-{client}.md').read_bytes()
         distributions[client] = {f'firmory-{client}/{k}': v for k, v in files.items()}
-    # The upload accepts OAuth metadata that the Codex marketplace loader rejects.
+    # Desktop/portal ZIP imports need explicit OAuth settings. Keep the legacy
+    # CLI marketplace configuration compatible with its discovery-based loader.
     configs['mcp.json']['mcpServers']['firmory_cloud']['extensions'] = {
-        'com.openai': {'auth': {'type': 'oauth', 'client': {'mode': 'cimd'}}}
+        'com.openai': {'auth': {'type': 'oauth', 'client': {'mode': 'cimd'},
+                                'baseScopes': ['user:org:read']}}
     }
     upload = {**common, 'mcp.json': json_bytes(configs['mcp.json'])}
+    distributions['codex']['mcp.json'] = upload['mcp.json']
     if env == 'production' and not public_only:
         openai = portable['extensions']['com.openai']
         if not review_cases:

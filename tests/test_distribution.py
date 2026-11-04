@@ -2,6 +2,7 @@
 import contextlib
 import io
 import json
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -31,12 +32,43 @@ class DistributionTests(unittest.TestCase):
                 mcp = json.loads(archive.read('mcp.json'))
                 self.assertEqual(mcp['mcpServers'], {'firmory_cloud': {
                     'type': 'streamable-http', 'url': 'https://firmory.ai/mcp',
+                    'extensions': {'com.openai': {'auth': {
+                        'type': 'oauth', 'client': {'mode': 'cimd'},
+                        'baseScopes': ['user:org:read'],
+                    }}},
                 }})
                 self.assertIn('skills/firmory/SKILL.md', names)
+                for name in names:
+                    if name.endswith(('.md', '.json')):
+                        self.assertIsNone(re.search(r'[\u3400-\u4dbf\u4e00-\u9fff]', archive.read(name).decode()), name)
             with ZipFile(output / 'firmory-1.0.1-claude-code.zip') as archive:
                 catalog = json.loads(archive.read('firmory-claude-code/.claude-plugin/marketplace.json'))
                 self.assertEqual(catalog['name'], 'firmory-plugins')
                 self.assertIn('firmory-claude-code/plugins/firmory/.claude-plugin/plugin.json', archive.namelist())
+                for name in archive.namelist():
+                    if name.endswith(('.md', '.json')):
+                        self.assertIsNone(re.search(r'[\u3400-\u4dbf\u4e00-\u9fff]', archive.read(name).decode()), name)
+
+
+    def test_public_and_review_zips_share_oauth_settings(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            cases = output / 'cases.json'
+            cases.write_text(json.dumps({
+                'positive': [{'description': 'Read a fixture', 'prompt': 'Show files',
+                              'expected_behavior': 'List fixture files', 'tools_triggered': 'workspace'}] * 5,
+                'negative': [{'description': 'Unsupported action', 'prompt': 'Transfer money'}] * 3,
+            }))
+            with contextlib.redirect_stdout(io.StringIO()):
+                build('production', '1.0.1', output, review_cases=cases)
+            with ZipFile(output / 'firmory-1.0.1-codex.zip') as public, \
+                    ZipFile(output / 'firmory-1.0.1-production-openai.zip') as review, \
+                    ZipFile(output / 'firmory-1.0.1-production-marketplace.zip') as marketplace:
+                self.assertEqual(public.read('mcp.json'), review.read('mcp.json'))
+                self.assertNotIn('review', json.loads(public.read('plugin.json'))['extensions']['com.openai'])
+                self.assertIn('review', json.loads(review.read('plugin.json'))['extensions']['com.openai'])
+                runtime = json.loads(marketplace.read('plugins/firmory/mcp.json'))
+                self.assertNotIn('extensions', runtime['mcpServers']['firmory_cloud'])
 
 
 if __name__ == '__main__':
