@@ -1,22 +1,22 @@
-<p align="center"><img src="plugins/ask-firmory/assets/logo-blue.png" alt="Firmory" width="88" height="88"></p>
+<p align="center"><img src="plugins/firmory/assets/logo-blue.png" alt="Firmory" width="88" height="88"></p>
 
 # Firmory
 
-**接續團隊的 AI 成果。**
+**在共享的數位資產上延續創作**
 
-在 Codex 或 Claude Code 連接 Firmory 預覽工作空間，尋找專案、選取文件，並追溯它使用的來源版本。
+在 Codex 或 Claude Code 連接 Firmory 工作空間，尋找專案、選取文件，並追溯它使用的來源版本。
 
 [English](README.md) · 繁體中文
 
 [官網](https://firmory.ai/) · [安裝指南（英文）](docs/installation.md) · [版本紀錄（英文）](CHANGELOG.md) · [回報問題](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-**雲端預覽版 · 0.2.0-alpha.3** · [MCP 端點](https://preview.firmory.ai/mcp)。套件由 Firmory 自有的 marketplace 提供。
+**版本 1.0.1** · [MCP 端點](https://firmory.ai/mcp)。套件由 Firmory 自有的 marketplace 提供。
 
 ## Codex
 
 ```sh
 codex plugin marketplace add DepsilonAI/firmory-plugins
-codex plugin add ask-firmory@firmory-plugins
+codex plugin add firmory@firmory-plugins
 codex mcp login firmory_cloud --scopes user:org:read
 ```
 
@@ -26,16 +26,16 @@ codex mcp login firmory_cloud --scopes user:org:read
 
 ```sh
 claude plugin marketplace add DepsilonAI/firmory-plugins
-claude plugin install ask-firmory@firmory-plugins
+claude plugin install firmory@firmory-plugins
 ```
 
-開新對話，在 `/mcp` 選擇 Firmory 雲端連線並完成授權，再執行 `/ask-firmory:setup`。需要有團隊存取權限的 Firmory 預覽帳號，不需要安裝本機 Firmory CLI。
+開新對話，在 `/mcp` 選擇 Firmory 雲端連線並完成授權，再執行 `/firmory:setup`。需要有團隊存取權限的 Firmory 帳號，不需要安裝本機 Firmory CLI。
 
 ## 開始提問
 
-- 在 Firmory 工作空間裡，我能查看哪些專案？
-- 幫我查一份報告是根據哪一版需求寫的。
-- 我準備更新一份規格。哪些文件是根據它目前這一版做的？
+- 顯示我的工作空間中可用的專案和檔案。
+- 找出專案簡報，整理目標和關鍵決策。
+- 開啟「Welcome.pdf」，整理重點。
 
 Firmory 會傳回團隊有權查看的紀錄。若想追問某份文件或某個版本，可在同一個 Codex 或 Claude Code 對話繼續。
 

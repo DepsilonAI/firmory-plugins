@@ -2,7 +2,7 @@
   "mcpServers": {
     "firmory_cloud": {
       "type": "http",
-      "url": "https://preview.firmory.ai/mcp"
+      "url": "https://firmory.ai/mcp"
     }
   }
 }

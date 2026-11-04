@@ -5,10 +5,10 @@
   },
   "plugins": [
     {
-      "name": "ask-firmory",
+      "name": "firmory",
       "source": {
         "source": "local",
-        "path": "./plugins/ask-firmory"
+        "path": "./plugins/firmory"
       },
       "category": "Productivity",
       "policy": {

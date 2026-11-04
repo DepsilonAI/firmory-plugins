@@ -4,12 +4,12 @@
     "name": "Firmory"
   },
   "metadata": {
-    "description": "Ask Firmory about the files, versions, and sources behind your team’s AI work."
+    "description": "Build on shared digital assets"
   },
   "plugins": [
     {
-      "name": "ask-firmory",
-      "source": "./plugins/ask-firmory"
+      "name": "firmory",
+      "source": "./plugins/firmory"
     }
   ]
 }

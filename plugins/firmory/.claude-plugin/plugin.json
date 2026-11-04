@@ -1,7 +1,7 @@
 {
-  "name": "ask-firmory",
-  "version": "0.2.0-alpha.3",
-  "description": "Ask Firmory about the files, versions, and sources behind your team’s AI work.",
+  "name": "firmory",
+  "version": "1.0.1",
+  "description": "Build on shared digital assets",
   "author": {
     "name": "Firmory",
     "url": "https://firmory.ai",
