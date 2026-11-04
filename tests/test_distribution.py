@@ -32,10 +32,6 @@ class DistributionTests(unittest.TestCase):
                 mcp = json.loads(archive.read('mcp.json'))
                 self.assertEqual(mcp['mcpServers'], {'firmory_cloud': {
                     'type': 'streamable-http', 'url': 'https://firmory.ai/mcp',
-                    'extensions': {'com.openai': {'auth': {
-                        'type': 'oauth', 'client': {'mode': 'cimd'},
-                        'baseScopes': ['user:org:read'],
-                    }}},
                 }})
                 self.assertIn('skills/firmory/SKILL.md', names)
                 for name in names:
@@ -50,7 +46,7 @@ class DistributionTests(unittest.TestCase):
                         self.assertIsNone(re.search(r'[\u3400-\u4dbf\u4e00-\u9fff]', archive.read(name).decode()), name)
 
 
-    def test_public_and_review_zips_share_oauth_settings(self):
+    def test_desktop_uses_discovery_and_portal_has_explicit_oauth(self):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory)
             cases = output / 'cases.json'
@@ -64,7 +60,12 @@ class DistributionTests(unittest.TestCase):
             with ZipFile(output / 'firmory-1.0.1-codex.zip') as public, \
                     ZipFile(output / 'firmory-1.0.1-production-openai.zip') as review, \
                     ZipFile(output / 'firmory-1.0.1-production-marketplace.zip') as marketplace:
-                self.assertEqual(public.read('mcp.json'), review.read('mcp.json'))
+                self.assertEqual(public.read('mcp.json'), marketplace.read('plugins/firmory/mcp.json'))
+                review_server = json.loads(review.read('mcp.json'))['mcpServers']['firmory_cloud']
+                self.assertEqual(review_server['extensions']['com.openai']['auth'], {
+                    'type': 'oauth', 'client': {'mode': 'cimd'}, 'baseScopes': ['user:org:read'],
+                })
+                self.assertEqual(review_server['url'], 'https://firmory.ai/mcp')
                 self.assertNotIn('review', json.loads(public.read('plugin.json'))['extensions']['com.openai'])
                 self.assertIn('review', json.loads(review.read('plugin.json'))['extensions']['com.openai'])
                 runtime = json.loads(marketplace.read('plugins/firmory/mcp.json'))

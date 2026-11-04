@@ -17,7 +17,7 @@
 ```sh
 codex plugin marketplace add DepsilonAI/firmory-plugins
 codex plugin add firmory@firmory-plugins
-codex mcp login firmory_cloud --scopes user:org:read
+codex -c 'mcp_servers.firmory_cloud.url="https://firmory.ai/mcp"' mcp login firmory_cloud --scopes user:org:read --oauth-client-registration cimd
 ```
 
 在瀏覽器完成登入與授權，再開新對話執行 Firmory 設定，確認連接的團隊。桌面版安裝方式見[安裝指南](docs/installation.md)。

@@ -23,7 +23,7 @@ Drag the Codex ZIP into **Customize → Plugins** without extracting it, or use 
 ```sh
 codex plugin marketplace add DepsilonAI/firmory-plugins
 codex plugin add firmory@firmory-plugins
-codex mcp login firmory_cloud --scopes user:org:read
+codex -c 'mcp_servers.firmory_cloud.url="https://firmory.ai/mcp"' mcp login firmory_cloud --scopes user:org:read --oauth-client-registration cimd
 ```
 
 Complete sign-in in the browser. Open a new chat and run Firmory setup to confirm the connected team. To install from the app, see the [installation guide](docs/installation.md).

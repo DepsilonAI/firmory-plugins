@@ -7,7 +7,7 @@
 3. Connect Firmory in your client's MCP settings. If needed, run this in the terminal.
 
 ```sh
-codex mcp login firmory_cloud --scopes user:org:read
+codex -c 'mcp_servers.firmory_cloud.url="https://firmory.ai/mcp"' mcp login firmory_cloud --scopes user:org:read --oauth-client-registration cimd
 ```
 
 4. In the browser, sign in to Firmory, select your team and allow access. Start a new chat and run Firmory setup to confirm the team.
