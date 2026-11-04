@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "firmory",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Build on shared digital assets",
   "author": {
     "name": "Firmory",
@@ -37,9 +37,9 @@
         "logo": "./assets/logo-blue.png",
         "composerIcon": "./assets/composer-blue.png",
         "defaultPrompt": [
-          "Which projects can I access in my Firmory workspace?",
-          "Help me check which version of the brief a report was based on.",
-          "I’m revising a spec. Which documents were built from its current version?"
+          "Show me the projects and files available in my workspace",
+          "Find the project brief and summarize its goals and key decisions",
+          "Open \"Welcome.pdf\" and summarize its key points"
         ]
       },
       "onboardingSkill": "./skills/setup/SKILL.md",

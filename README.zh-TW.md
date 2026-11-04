@@ -10,7 +10,7 @@
 
 [官網](https://firmory.ai/) · [安裝指南（英文）](docs/installation.md) · [版本紀錄（英文）](CHANGELOG.md) · [回報問題](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-**版本 1.0.0** · [MCP 端點](https://firmory.ai/mcp)。套件由 Firmory 自有的 marketplace 提供。
+**版本 1.0.1** · [MCP 端點](https://firmory.ai/mcp)。套件由 Firmory 自有的 marketplace 提供。
 
 ## Codex
 
@@ -33,9 +33,9 @@ claude plugin install firmory@firmory-plugins
 
 ## 開始提問
 
-- 在 Firmory 工作空間裡，我能查看哪些專案？
-- 幫我查一份報告是根據哪一版需求寫的。
-- 我準備更新一份規格。哪些文件是根據它目前這一版做的？
+- 顯示我的工作空間中可用的專案和檔案。
+- 找出專案簡報，整理目標和關鍵決策。
+- 開啟「Welcome.pdf」，整理重點。
 
 Firmory 會傳回團隊有權查看的紀錄。若想追問某份文件或某個版本，可在同一個 Codex 或 Claude Code 對話繼續。
 

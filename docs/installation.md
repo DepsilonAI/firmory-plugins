@@ -1,6 +1,10 @@
 # Install, update, and remove Firmory
 
-[Back to README](../README.md)
+[Back to README](../README.md) · [Illustrated installation guide](https://firmory.ai/plugins)
+
+## ZIP installation
+
+Download a client-specific ZIP from [GitHub Releases](https://github.com/DepsilonAI/firmory-plugins/releases), extract the whole directory including hidden catalogs, and follow its README. See [Codex ZIP instructions](install-codex.md) or [Claude Code ZIP instructions](install-claude-code.md).
 
 ## Prerequisites
 

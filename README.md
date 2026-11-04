@@ -10,7 +10,13 @@ English · [繁體中文](README.zh-TW.md)
 
 [Website](https://firmory.ai/) · [Installation guide](docs/installation.md) · [Changelog](CHANGELOG.md) · [Report a problem](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-**Version 1.0.0** · [MCP endpoint](https://firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
+**Version 1.0.1** · [MCP endpoint](https://firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
+
+## ZIP downloads
+
+[Codex ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.0.1/firmory-1.0.1-codex.zip) · [Claude Code ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.0.1/firmory-1.0.1-claude-code.zip) · [Illustrated installation guide](https://firmory.ai/plugins)
+
+Extract the ZIP and follow its README. Or use the GitHub install commands below. The Welcome.pdf prompt requires that file in the connected workspace.
 
 ## Codex
 
@@ -33,9 +39,9 @@ Start a new session. Use `/mcp` to authenticate the Firmory cloud connection, th
 
 ## Start a conversation
 
-- Which projects can I access in my Firmory workspace?
-- Help me check which version of the brief a report was based on.
-- I’m revising a spec. Which documents were built from its current version?
+- Show me the projects and files available in my workspace
+- Find the project brief and summarize its goals and key decisions
+- Open "Welcome.pdf" and summarize its key points
 
 Firmory returns records visible to your team. You can follow up about a file or version in the same Codex or Claude Code conversation.
 

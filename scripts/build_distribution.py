@@ -35,7 +35,7 @@ def archive(path, files):
     print(path)
 
 
-def build(env, release_version, destination, review_cases=None, demo_recording_url=None):
+def build(env, release_version, destination, review_cases=None, demo_recording_url=None, public_only=False):
     portable = read_json('plugin.json')
     claude = read_json('.claude-plugin/plugin.json')
     if (portable['name'], portable['version']) != (claude['name'], claude['version']):
@@ -56,7 +56,7 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
         configs[path] = config
 
     common = {name: (PLUGIN / name).read_bytes() for name in (
-        'assets/logo-blue.png', 'assets/composer-blue.png', 'README.md',
+        'assets/icon.svg', 'assets/logo-blue.png', 'assets/composer-blue.png', 'README.md',
         'skills/firmory/SKILL.md', 'skills/setup/SKILL.md',
     )}
     if (PLUGIN / 'LICENSE').is_file():
@@ -69,12 +69,17 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
     marketplace = {f'{PLUGIN_PATH}/{k}': v for k, v in runtime.items()}
     marketplace.update({k: (ROOT / k).read_bytes() for k in CATALOGS})
     marketplace['README.md'] = common['README.md']
+    distributions = {}
+    for client, catalog in [('codex', CATALOGS[0]), ('claude-code', CATALOGS[1])]:
+        files = {k: v for k, v in marketplace.items() if k not in CATALOGS or k == catalog}
+        files['README.md'] = (ROOT / f'docs/install-{client}.md').read_bytes()
+        distributions[client] = {f'firmory-{client}/{k}': v for k, v in files.items()}
     # The upload accepts OAuth metadata that the Codex marketplace loader rejects.
     configs['mcp.json']['mcpServers']['firmory_cloud']['extensions'] = {
         'com.openai': {'auth': {'type': 'oauth', 'client': {'mode': 'cimd'}}}
     }
     upload = {**common, 'mcp.json': json_bytes(configs['mcp.json'])}
-    if env == 'production':
+    if env == 'production' and not public_only:
         openai = portable['extensions']['com.openai']
         if not review_cases:
             raise ValueError('Production requires --review-cases pointing to the cases for the actual reviewer workspace')
@@ -94,13 +99,20 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
             openai['review']['demo_recording_url'] = demo_recording_url
         openai['publication']['release_notes'] = f'Firmory {release_version} connects to your team workspace to compare file versions, trace references, summarize project briefings, and save or revise a checklist with its source versions.'
         upload['plugin.json'] = json_bytes(portable)
-        for name, data in {**marketplace, **upload}.items():
+    if env == 'production':
+        all_files = {**marketplace, **upload}
+        for files in distributions.values():
+            all_files.update(files)
+        for name, data in all_files.items():
             if not name.endswith('.png') and any(x in data.lower() for x in (b'preview.firmory.ai', b'clerk.accounts.dev')):
                 raise ValueError(f'Development host found in {name}')
     destination.mkdir(parents=True, exist_ok=True)
     prefix = f"firmory-{portable['version']}-{env}"
-    archive(destination / f'{prefix}-openai.zip', upload)
+    if not public_only:
+        archive(destination / f'{prefix}-openai.zip', upload)
     archive(destination / f'{prefix}-marketplace.zip', marketplace)
+    for client, files in distributions.items():
+        archive(destination / f"firmory-{portable['version']}-{client}.zip", files)
 
 
 if __name__ == '__main__':
@@ -109,9 +121,10 @@ if __name__ == '__main__':
     parser.add_argument('--release-version')
     parser.add_argument('--review-cases', type=Path, help='JSON containing the production reviewer workspace test cases')
     parser.add_argument('--demo-recording-url', help='Public HTTPS video link for OpenAI reviewers')
+    parser.add_argument('--public-only', action='store_true', help='Build public installers without OpenAI review materials')
     parser.add_argument('--output-dir', type=Path, default=ROOT / 'dist')
     args = parser.parse_args()
     try:
-        build(args.env, args.release_version, args.output_dir, args.review_cases, args.demo_recording_url)
+        build(args.env, args.release_version, args.output_dir, args.review_cases, args.demo_recording_url, args.public_only)
     except (ValueError, OSError) as error:
         parser.error(str(error))

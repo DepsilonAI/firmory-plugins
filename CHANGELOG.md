@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 — public distribution
+
+- Use the new Firmory icon in brand blue #3352E4.
+- Start with workspace discovery, project briefing, or a summary of Welcome.pdf when that file is available.
+- Provide separate Codex and Claude Code ZIP downloads with illustrated installation instructions at https://firmory.ai/plugins.
+
 ## 1.0.0 — first production package
 
 - Install as `firmory@firmory-plugins` in Codex and Claude Code. The package connects to the production Firmory workspace.

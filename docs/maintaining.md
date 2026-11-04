@@ -23,6 +23,16 @@ Then test installation from a disposable client profile: register the local repo
 
 Record the client versions and exact commands in the pull request. There is currently no automated CI workflow in this repository; do not treat a missing check as a pass. The Claude CLI checks package structure, not all directory requirements or cloud behavior.
 
+## Public downloads
+
+Build the client ZIPs without private review metadata.
+
+```sh
+python3 scripts/build_distribution.py --env production --release-version 1.0.1 --public-only
+```
+
+Upload only the Codex ZIP, Claude Code ZIP, and their checksums to the public GitHub Release. The OpenAI review archive is a separate portal submission and is not a public installer.
+
 ## Build and promote
 
 `main` installs the production plugin at `https://firmory.ai/mcp`. Build preview archives with Python 3 from the repository root.
