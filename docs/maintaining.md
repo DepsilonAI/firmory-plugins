@@ -59,3 +59,5 @@ After those checks pass, publish the extracted marketplace tree to a dedicated r
 - [OpenAI submission](https://developers.openai.com/plugins/deploy/submission)
 - [Claude marketplace creation](https://code.claude.com/docs/en/plugin-marketplaces)
 - [Claude directory pre-submission checks](https://claude.com/docs/plugins/pre-submission-checklist)
+
+The public Codex ZIP must contain one portable plugin at the archive root (`plugin.json`, `mcp.json`, `assets/`, and `skills/`), without marketplace catalogs or a `plugins/firmory` wrapper. Users drag this ZIP into Customize → Plugins. Claude Code retains its marketplace ZIP layout. Run `python3 -m unittest discover -s tests -v` before replacing release assets.

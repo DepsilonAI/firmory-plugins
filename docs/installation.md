@@ -4,7 +4,7 @@
 
 ## ZIP installation
 
-Download a client-specific ZIP from [GitHub Releases](https://github.com/DepsilonAI/firmory-plugins/releases), extract the whole directory including hidden catalogs, and follow its README. See [Codex ZIP instructions](install-codex.md) or [Claude Code ZIP instructions](install-claude-code.md).
+Download a client-specific ZIP from [GitHub Releases](https://github.com/DepsilonAI/firmory-plugins/releases). Drag the Codex ZIP into **Customize → Plugins** without extracting it; Codex CLI users should install from GitHub. Extract the Claude Code ZIP including its hidden catalog, and follow its README. See [Codex ZIP instructions](install-codex.md) or [Claude Code ZIP instructions](install-claude-code.md).
 
 ## Prerequisites
 

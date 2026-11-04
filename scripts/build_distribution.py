@@ -69,8 +69,10 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
     marketplace = {f'{PLUGIN_PATH}/{k}': v for k, v in runtime.items()}
     marketplace.update({k: (ROOT / k).read_bytes() for k in CATALOGS})
     marketplace['README.md'] = common['README.md']
-    distributions = {}
-    for client, catalog in [('codex', CATALOGS[0]), ('claude-code', CATALOGS[1])]:
+    # ZIP uploaders accept one plugin root, not a nested marketplace catalog.
+    distributions = {'codex': {**common, 'mcp.json': runtime['mcp.json'],
+                               'README.md': (ROOT / 'docs/install-codex.md').read_bytes()}}
+    for client, catalog in [('claude-code', CATALOGS[1])]:
         files = {k: v for k, v in marketplace.items() if k not in CATALOGS or k == catalog}
         files['README.md'] = (ROOT / f'docs/install-{client}.md').read_bytes()
         distributions[client] = {f'firmory-{client}/{k}': v for k, v in files.items()}
