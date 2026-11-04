@@ -36,7 +36,7 @@ Expect the package `firmory@firmory-plugins` and the `firmory` and `setup` skill
 
 In Codex, use `codex plugin list` or the Plugins panel to find Firmory. In either client, inspect the package’s two skills and the remote MCP server configuration. A configured server URL does not prove that the server is reachable or authenticated.
 
-The remote service is `https://firmory.ai/mcp`. In Codex, `codex mcp list` should show `firmory_cloud`. A 401 before sign-in is expected. After authorization, run setup and verify the **team name from a successful cloud read**. A successful install or a browser redirect alone is not a workspace verification.
+The remote service is `https://firmory.ai/mcp`. The standalone Codex CLI may not list plugin-managed servers; inspect the installed plugin connection in the app. A 401 before sign-in is expected. After authorization, run setup and verify the **team name from a successful cloud read**. A successful install or a browser redirect alone is not a workspace verification.
 
 ## Update
 
