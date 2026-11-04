@@ -14,7 +14,7 @@ The plugin connects to its configured `firmory_cloud` service over HTTPS. The ho
 - Find the project brief and summarize its goals and key decisions
 - Open "Welcome.pdf" and summarize its key points
 
-The PDF question requires Welcome.pdf in the connected workspace. [Illustrated installation guide](https://firmory.ai/plugins).
+[Illustrated installation guide](https://firmory.ai/plugins).
 
 ## 简体中文
 

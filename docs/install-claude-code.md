@@ -24,8 +24,6 @@ claude mcp login plugin:firmory:firmory_cloud
 - Find the project brief and summarize its goals and key decisions
 - Open "Welcome.pdf" and summarize its key points
 
-The PDF question needs a Welcome.pdf file in your connected workspace. No example workspace files are included in the plugin.
-
 ## Install from GitHub instead
 
 ```sh
@@ -38,8 +36,6 @@ The plugin connects to https://firmory.ai/mcp using browser sign-in. It can read
 ## 简体中文
 
 下载并解压 ZIP，保留整个 firmory-claude-code 文件夹（包括隐藏文件）。在该文件夹中打开终端，依次执行上面的安装命令。在客户端的 MCP 设置中连接 Firmory，在浏览器登录、选择团队并授权。开启新对话，运行 Firmory 设置以确认团队，然后即可用中文提问。
-
-Welcome.pdf 需事先放入连接的工作空间，插件不附带该文件。
 
 ## 繁體中文
 

@@ -3,7 +3,7 @@
 ## 1.0.1 — public distribution
 
 - Use the new Firmory icon in brand blue #3352E4.
-- Start with workspace discovery, project briefing, or a summary of Welcome.pdf when that file is available.
+- Start with workspace discovery, project briefing, or a summary of Welcome.pdf.
 - Provide separate Codex and Claude Code ZIP downloads with illustrated installation instructions at https://firmory.ai/plugins.
 
 ## 1.0.0 — first production package
