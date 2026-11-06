@@ -25,6 +25,13 @@ def read_json(path):
     return json.loads((PLUGIN / path).read_text(encoding='utf-8'))
 
 
+def package_file(path, env):
+    data = path.read_bytes()
+    if path.suffix == '.md':
+        data = data.replace(ENDPOINTS['production'].encode(), ENDPOINTS[env].encode())
+    return data
+
+
 def archive(path, files):
     with ZipFile(path, 'w') as output:
         for name, data in sorted(files.items()):
@@ -55,7 +62,7 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
         config['mcpServers']['firmory_cloud']['url'] = ENDPOINTS[env]
         configs[path] = config
 
-    common = {name: (PLUGIN / name).read_bytes() for name in (
+    common = {name: package_file(PLUGIN / name, env) for name in (
         'assets/icon.svg', 'assets/logo-blue.png', 'assets/composer-blue.png', 'README.md',
         'skills/firmory/SKILL.md', 'skills/setup/SKILL.md',
     )}
@@ -71,10 +78,10 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
     marketplace['README.md'] = common['README.md']
     # ZIP uploaders accept one plugin root, not a nested marketplace catalog.
     distributions = {'codex': {**common, 'mcp.json': runtime['mcp.json'],
-                               'README.md': (ROOT / 'docs/install-codex.md').read_bytes()}}
+                               'README.md': package_file(ROOT / 'docs/install-codex.md', env)}}
     for client, catalog in [('claude-code', CATALOGS[1])]:
         files = {k: v for k, v in marketplace.items() if k not in CATALOGS or k == catalog}
-        files['README.md'] = (ROOT / f'docs/install-{client}.md').read_bytes()
+        files['README.md'] = package_file(ROOT / f'docs/install-{client}.md', env)
         distributions[client] = {f'firmory-{client}/{k}': v for k, v in files.items()}
     # The submission portal accepts explicit OAuth metadata. Desktop's current
     # MCP loader rejects server extensions, so install ZIPs use OAuth discovery.

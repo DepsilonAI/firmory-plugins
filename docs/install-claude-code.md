@@ -24,11 +24,13 @@ claude mcp login plugin:firmory:firmory_cloud
 - Find the project brief and summarize its goals and key decisions
 - Open "Welcome.pdf" and summarize its key points
 
-## Install from GitHub instead
+## Install the production plugin from GitHub instead
+
+These commands install the production plugin from GitHub. To keep this ZIP's environment, use the ZIP instructions above.
 
 ```sh
 claude plugin marketplace add DepsilonAI/firmory-plugins
 claude plugin install firmory@firmory-plugins
 ```
 
-The plugin connects to https://firmory.ai/mcp using browser sign-in. It can read the files your team permits and save changes when you ask. [Privacy](https://firmory.ai/privacy) · [Terms](https://firmory.ai/terms).
+This ZIP connects to https://firmory.ai/mcp using browser sign-in. It can read the files your team permits and save changes when you ask. [Privacy](https://firmory.ai/privacy) · [Terms](https://firmory.ai/terms).
