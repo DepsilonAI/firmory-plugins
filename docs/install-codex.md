@@ -17,13 +17,13 @@ codex -c 'mcp_servers.firmory_cloud.url="https://firmory.ai/mcp"' mcp login firm
 - Find the project brief and summarize its goals and key decisions
 - Open "Welcome.pdf" and summarize its key points
 
-## Install from GitHub instead
+## Install the production plugin from GitHub instead
 
-For Codex CLI installation, run these commands in any folder. The CLI installs from GitHub rather than from this ZIP.
+For Codex CLI installation, run these commands in any folder. These install the production plugin from GitHub. To keep this ZIP's environment, use the ZIP instructions above.
 
 ```sh
 codex plugin marketplace add DepsilonAI/firmory-plugins
 codex plugin add firmory@firmory-plugins
 ```
 
-The plugin connects to https://firmory.ai/mcp using browser sign-in. It can read the files your team permits and save changes when you ask. [Privacy](https://firmory.ai/privacy) · [Terms](https://firmory.ai/terms).
+This ZIP connects to https://firmory.ai/mcp using browser sign-in. It can read the files your team permits and save changes when you ask. [Privacy](https://firmory.ai/privacy) · [Terms](https://firmory.ai/terms).

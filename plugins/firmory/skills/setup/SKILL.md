@@ -15,6 +15,12 @@ Preserve the user's original question. Setup establishes the connection; it is n
 
 If setup was the only request, confirm the team and offer: "Show me the projects and files available in my workspace". Otherwise continue the requested task using the Firmory skill. Answer in the user's language; the supplied starter questions remain in English.
 
+## Verify a connection requested by the Firmory website
+
+When the user supplies a connection challenge from Firmory, complete the normal authorization and workspace check above, then discover and call this connection's `verify_connection` tool with `{ "challenge": "<the supplied challenge>" }`. Do not generate or alter a challenge, send it to another connection, or include it in the final reply. If the tool reports an error or is unavailable, report that the website connection has not been verified. An expired challenge requires a new check from the website; a permission or team mismatch requires the intended team, not repeated sign-in attempts.
+
+Check `isError` before reading the result. Only a successful response with `connectionCheck.status` equal to `verified` confirms the website check. Report the returned team and, when present, project so the user can confirm the intended workspace. Workspace access alone does not complete this website check. Continue the user's original task after verification. A challenge is optional for ordinary plugin setup; do not require one unless the user is completing this website flow.
+
 ## Codex terminal fallback
 
 Use this only in Codex when its Firmory connection action is unavailable and terminal execution is supported. Run the installed Codex CLI yourself; do not stop at telling the user to find a sign-in button. Prefer `codex` on PATH. On macOS, if it is absent, check the app-bundled executable at `/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex` and use it only if present.

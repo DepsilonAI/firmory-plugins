@@ -12,6 +12,28 @@ from scripts.build_distribution import build
 
 
 class DistributionTests(unittest.TestCase):
+    def test_preview_instructions_match_the_packaged_server(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            with contextlib.redirect_stdout(io.StringIO()):
+                build('preview', None, output)
+            archives = list(output.glob('*.zip'))
+            self.assertEqual(len(archives), 4)
+            for path in archives:
+                with self.subTest(archive=path.name), ZipFile(path) as archive:
+                    self.assertIsNone(archive.testzip())
+                    for name in archive.namelist():
+                        if name.endswith(('mcp.json', '.md')):
+                            self.assertNotIn(b'https://firmory.ai/mcp', archive.read(name), name)
+                        if name.endswith('mcp.json'):
+                            server = json.loads(archive.read(name))['mcpServers']['firmory_cloud']
+                            self.assertEqual(server['url'], 'https://preview.firmory.ai/mcp')
+                    setup = next(name for name in archive.namelist() if name.endswith('skills/setup/SKILL.md'))
+                    self.assertIn(b'https://preview.firmory.ai/mcp', archive.read(setup))
+                    self.assertIn(b'`verify_connection`', archive.read(setup))
+                    if path.name.endswith('-codex.zip'):
+                        self.assertIn(b'https://preview.firmory.ai/mcp', archive.read('README.md'))
+
     def test_codex_zip_is_one_uploadable_plugin(self):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory)
