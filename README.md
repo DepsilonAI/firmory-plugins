@@ -10,11 +10,11 @@ English · [繁體中文](README.zh-TW.md)
 
 [Website](https://firmory.ai/) · [Installation guide](docs/installation.md) · [Changelog](CHANGELOG.md) · [Report a problem](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-**Version 1.0.1** · [MCP endpoint](https://firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
+**Version 1.1.0 (unreleased)** · [MCP endpoint](https://firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
 
 ## ZIP downloads
 
-[Codex ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.0.1/firmory-1.0.1-codex.zip) · [Claude Code ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.0.1/firmory-1.0.1-claude-code.zip) · [Illustrated installation guide](https://firmory.ai/download#plugins)
+[Published releases](https://github.com/DepsilonAI/firmory-plugins/releases) · [Illustrated installation guide](https://firmory.ai/download#plugins)
 
 Drag the Codex ZIP into **Customize → Plugins** without extracting it, or use the GitHub install commands below for Codex CLI. Extract the Claude Code ZIP and follow its README.
 
@@ -23,10 +23,10 @@ Drag the Codex ZIP into **Customize → Plugins** without extracting it, or use 
 ```sh
 codex plugin marketplace add DepsilonAI/firmory-plugins
 codex plugin add firmory@firmory-plugins
-codex -c 'mcp_servers.firmory_cloud.url="https://firmory.ai/mcp"' mcp login firmory_cloud --scopes user:org:read --oauth-client-registration cimd
+codex -c 'mcp_servers.firmory_cloud.url="https://firmory.ai/mcp"' mcp login firmory_cloud --scopes openid --oauth-client-registration cimd
 ```
 
-Complete sign-in in the browser. Open a new chat and run Firmory setup to confirm the connected team. To install from the app, see the [installation guide](docs/installation.md).
+Authorize your Firmory account in the browser. Open a new chat and run Firmory setup to select and confirm the team. The account can access its permitted teams without signing in again for each switch. To install from the app, see the [installation guide](docs/installation.md).
 
 ## Claude Code
 
@@ -43,7 +43,11 @@ Start a new session. Use `/mcp` to authenticate the Firmory cloud connection, th
 - Find the project brief and summarize its goals and key decisions
 - Open "Welcome.pdf" and summarize its key points
 
-Firmory returns records visible to your team. You can follow up about a file or version in the same Codex or Claude Code conversation.
+Ask "Which team am I using?", "List my teams", or "Switch to the Design team". The AI uses `get_current_team`, `list_teams`, and `switch_team`; subsequent file operations use the selected team. Firmory checks current membership and permissions on every operation. Team selection is shared by calls using the same OAuth credential and is independent of the team selected in the browser.
+
+Firmory returns records visible in the selected team. You can follow up about a file or version in the same Codex or Claude Code conversation.
+
+Version 1.1.0 requires the account-aware MCP backend described in [the rollout guide](docs/account-teams.md). Older published downloads use organization-bound authorization; reconnect once with the account scope after rollout.
 
 ## Data and access
 

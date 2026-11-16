@@ -1,10 +1,10 @@
 {
   "positive": [
     {
-      "description": "Identify the connected team after authorization.",
+      "description": "Inspect the current team after account authorization.",
       "prompt": "Which Firmory team am I connected to? Verify using my current connection.",
-      "tools_triggered": "workspace",
-      "expected_behavior": "Report the team name returned for the reviewer account."
+      "tools_triggered": "get_current_team",
+      "expected_behavior": "Report the verified current team name and ID, or say no team is selected. Do not infer a team from the browser or automatically switch for this inspection question."
     },
     {
       "description": "List accessible projects from the root.",
