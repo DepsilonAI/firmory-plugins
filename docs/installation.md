@@ -4,6 +4,8 @@
 
 ## ZIP installation
 
+[Download Codex ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.0/firmory-1.1.0-codex.zip) · [Open Firmory in Codex](https://chatgpt.com/plugins/plugin_asdk_app_6ae80f414a488191a582e24283b42d9b)
+
 Download a client-specific ZIP from [GitHub Releases](https://github.com/DepsilonAI/firmory-plugins/releases). Drag the Codex ZIP into **Customize → Plugins** without extracting it; Codex CLI users should install from GitHub. Extract the Claude Code ZIP including its hidden catalog, and follow its README. See [Codex ZIP instructions](install-codex.md) or [Claude Code ZIP instructions](install-claude-code.md).
 
 ## Prerequisites
