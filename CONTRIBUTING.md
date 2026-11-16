@@ -12,6 +12,6 @@ Keep changes focused on installation, documentation, compatibility, or the exist
 
 Both platform manifests must describe the same version and functionality. Keep everything required at runtime inside `plugins/firmory/`; installed clients may not receive root-level documentation. Do not add real workspace data, credentials, private service URLs, or developer machine paths.
 
-The distribution license is pending. Discuss substantive code or asset contributions with the maintainers before submitting them. Do not add third-party content without establishing its rights and attribution.
+Code and documentation contributions are licensed under the [MIT License](LICENSE). Firmory trademark rights and access to hosted services are not granted by this license. Do not add third-party content without establishing its rights and attribution.
 
 For package changes, include the checks actually run and any untested cloud behavior. A successful JSON or CLI validation does not prove OAuth or end-to-end functionality. Use the pull request template and the release checks in the maintainer guide.

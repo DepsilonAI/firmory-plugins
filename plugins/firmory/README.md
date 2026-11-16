@@ -17,3 +17,7 @@ The plugin connects to its configured `firmory_cloud` service over HTTPS. The ho
 [Illustrated installation guide](https://firmory.ai/download).
 
 Team tools: `list_teams` lists currently accessible teams, `get_current_team` reports the current selection, and `switch_team` selects a returned team ID for subsequent calls. Selection belongs to the OAuth connection, independently of the browser. Account authorization remains subject to live team membership and read/write permissions. Older organization-only grants need one new account authorization.
+
+## License
+
+The plugin code and documentation are licensed under the [MIT License](LICENSE). This license does not grant trademark rights in the Firmory name or logos, or access to Firmory’s hosted services.

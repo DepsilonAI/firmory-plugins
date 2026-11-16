@@ -10,11 +10,11 @@ English · [繁體中文](README.zh-TW.md)
 
 [Website](https://firmory.ai/) · [Installation guide](docs/installation.md) · [Changelog](CHANGELOG.md) · [Report a problem](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-**Version 1.1.0 (unreleased)** · [MCP endpoint](https://firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
+**Version 1.1.0** · [MCP endpoint](https://firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
 
 ## ZIP downloads
 
-[Published releases](https://github.com/DepsilonAI/firmory-plugins/releases) · [Illustrated installation guide](https://firmory.ai/download#plugins)
+[Codex ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.0/firmory-1.1.0-codex.zip) · [Claude Code ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.0/firmory-1.1.0-claude-code.zip) · [Illustrated installation guide](https://firmory.ai/download#plugins)
 
 Drag the Codex ZIP into **Customize → Plugins** without extracting it, or use the GitHub install commands below for Codex CLI. Extract the Claude Code ZIP and follow its README.
 
@@ -74,4 +74,6 @@ Both catalogs point to the same plugin folder. The backend and customer workspac
 
 Use [GitHub issues](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose) for package or documentation problems. See [SECURITY.md](SECURITY.md) for private vulnerability reports, [CONTRIBUTING.md](CONTRIBUTING.md) for changes, and the [maintainer guide](docs/maintaining.md) for validation and release requirements.
 
-A distribution license has not yet been selected. Public visibility is not an open-source license; licensing must be resolved before directory submission.
+## License
+
+The plugin code and documentation are licensed under the [MIT License](LICENSE). This license does not grant trademark rights in the Firmory name or logos, or access to Firmory’s hosted services.

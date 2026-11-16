@@ -10,7 +10,7 @@
 
 [官網](https://firmory.ai/) · [安裝指南（英文）](docs/installation.md) · [版本紀錄（英文）](CHANGELOG.md) · [回報問題](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-**版本 1.1.0（尚未發布）** · [MCP 端點](https://firmory.ai/mcp)。套件由 Firmory 自有的 marketplace 提供。
+**版本 1.1.0** · [MCP 端點](https://firmory.ai/mcp)。套件由 Firmory 自有的 marketplace 提供。
 
 ## Codex
 
@@ -49,4 +49,8 @@ Firmory 會傳回團隊有權查看的紀錄。若想追問某份文件或某個
 
 兩個平台的 catalog 指向同一份插件資料夾；後端程式與客戶資料不在此倉庫。套件與文件問題可透過 [GitHub issues](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose) 回報；安全問題請使用 [SECURITY.md](SECURITY.md) 的私人聯絡方式。
 
-維護規則見 [CONTRIBUTING.md](CONTRIBUTING.md) 與[發布指南](docs/maintaining.md)。目前尚未選定散布授權；公開倉庫不等於開源授權，正式送審前需完成此項。
+維護規則見 [CONTRIBUTING.md](CONTRIBUTING.md) 與[發布指南](docs/maintaining.md)。
+
+## 授權
+
+插件程式碼與文件採用 [MIT 授權](LICENSE)。此授權不授予 Firmory 名稱或 Logo 的商標權，也不授予 Firmory 線上服務的使用權限。

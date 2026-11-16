@@ -41,6 +41,6 @@ Migration `0033_mcp_account_connections` was applied through the existing locked
 
 Post-deployment checks passed for API health, protected OpenAPI access, unauthenticated MCP rejection, account scope discovery, legacy authenticated workspace access, and the web consent build/asset identity. The full browser flow for a fresh account grant still requires reconnecting a client; it was not exercised with a new live OAuth grant. The preview service retains organization-only authorization and its existing frontend setup instructions.
 
-The canonical plugin repository currently grants the publishing account read-only access. Plugin source is pushed to the fork and proposed in [PR #6](https://github.com/DepsilonAI/firmory-plugins/pull/6). The 1.1.0 canonical marketplace/release publication remains pending that PR's merge and publisher write access. Do not describe the canonical plugin release as published until then.
+[PR #6](https://github.com/DepsilonAI/firmory-plugins/pull/6) is merged into the canonical repository. The publisher has approved the 1.1.0 release with fresh account authorization and live team switching to be tested separately by the publisher; those checks are not yet complete.
 
 Additional release checks: all 609 frontend tests passed, along with 21 real PostgreSQL migration/release rehearsal tests. The preview compatibility follow-up also passed the targeted authorization/onboarding tests, typechecks and lint.
