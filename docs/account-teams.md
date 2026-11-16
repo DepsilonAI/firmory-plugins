@@ -34,3 +34,13 @@ Build local installers with `python3 scripts/build_distribution.py --env product
 ## Local verification
 
 The source change was checked with 140 targeted tests: 105 MCP/auth/business tests, 3 real PostgreSQL selection-store tests (including the complete migration chain), 18 existing PostgreSQL MCP mutation regressions, 11 web authorization/setup tests, and 3 distribution tests. Backend and frontend typechecks, changed frontend file lint, and strict Claude marketplace/plugin validation passed. The PostgreSQL tests used an isolated temporary local server and fixture databases. Live Clerk browser OAuth and production deployment were not run; those remain rollout checks.
+
+## Production rollout — 2026-11-16
+
+Migration `0033_mcp_account_connections` was applied through the existing locked release flow. Production now has 34 applied migrations and 44 public tables, matching the committed catalog. API commit `18deeb3` and its private MCP business methods are deployed; MCP version `b17145f8-20d1-4d8d-b6b7-58bebccfd017` advertises `openid`. The web account consent page is deployed at `https://app.firmory.ai`.
+
+Post-deployment checks passed for API health, protected OpenAPI access, unauthenticated MCP rejection, account scope discovery, legacy authenticated workspace access, and the web consent build/asset identity. The full browser flow for a fresh account grant still requires reconnecting a client; it was not exercised with a new live OAuth grant. The preview service retains organization-only authorization and its existing frontend setup instructions.
+
+The canonical plugin repository currently grants the publishing account read-only access. Plugin source is pushed to the fork and proposed in [PR #6](https://github.com/DepsilonAI/firmory-plugins/pull/6). The 1.1.0 canonical marketplace/release publication remains pending that PR's merge and publisher write access. Do not describe the canonical plugin release as published until then.
+
+Additional release checks: all 609 frontend tests passed, along with 21 real PostgreSQL migration/release rehearsal tests. The preview compatibility follow-up also passed the targeted authorization/onboarding tests, typechecks and lint.
