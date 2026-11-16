@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "firmory",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Build on shared digital assets",
   "author": {
     "name": "Firmory",
@@ -21,7 +21,7 @@
       "interface": {
         "displayName": "Firmory",
         "shortDescription": "Build on shared digital assets",
-        "longDescription": "Share project files, AI-generated work, and project context with your team and Codex in one workspace. Find existing work, review recorded decisions and supporting materials, and build on work shared by teammates or created with AI—with less time spent transferring files and explaining project history.\n\nExplore saved project context and relationships between files to understand how work developed and which materials it relies on. Stay informed through Firmory’s related-update notifications when referenced materials change, and check whether your documents, code, or other deliverables need updating.",
+        "longDescription": "Authorize your Firmory account once, then view and switch between teams you can access directly in your AI conversation. Current team membership and permissions apply to every operation.\n\nShare project files, AI-generated work, and project context with your team and Codex in one workspace. Find existing work, review recorded decisions and supporting materials, and build on work shared by teammates or created with AI—with less time spent transferring files and explaining project history.\n\nExplore saved project context and relationships between files to understand how work developed and which materials it relies on. Stay informed through Firmory’s related-update notifications when referenced materials change, and check whether your documents, code, or other deliverables need updating.",
         "developerName": "Firmory",
         "category": "Productivity",
         "capabilities": [

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 — account authorization and team switching (unreleased)
+
+- Authorize the Firmory account using `openid`, then list, inspect, and switch teams through MCP with `list_teams`, `get_current_team`, and `switch_team`.
+- Keep browser team selection independent of the MCP connection and recheck membership and permissions on every operation.
+- Require one new account authorization for legacy organization-only connections; preserve their existing scope until then.
+- Coordinate deployment with the account-aware backend and database migration before distributing the new plugin.
+
 ## 1.0.1 — public distribution
 
 - Use the new Firmory icon in brand blue #3352E4.
