@@ -2,9 +2,9 @@
 
 ## Change team
 
-User asks to change team → read current workspace → request_team_authorization(currentTeamId) → host native OAuth → select the target team and authorize → verify workspace → resume the original task. No custom authorization card is used. The deprecated optional authorize argument remains accepted while clients refresh their approved tool schemas. If authorization is cancelled or the team is wrong, report that outcome without repeating the login flow. If the host does not surface the challenge, stop rather than repeating the same action. Project changes never use this flow.
+User asks to change team → read current workspace → request_team_authorization(currentTeamId) → show the returned plain authorization link → user opens the browser, selects the target team, and authorizes → refresh available connections → verify workspace on the intended connection → resume the original task. The browser entry uses ChatGPT's existing account-linking flow and retains existing connections. The deprecated optional authorize argument remains accepted while approved catalogs refresh. No custom card or forced invalid-token response is used. Direct Claude Code and Codex CLI MCP connections use their own OAuth controls instead of the ChatGPT link. Project changes never use this flow.
 
-The MCP tool changes no membership, grant, or selected-team row. A retry with a newly authorized team returns its workspace, preventing another challenge after success. Actual OAuth UI behavior must be tested in each host; a valid protocol response alone is not proof that a browser opened.
+The MCP tool changes no membership, grant, or selected-team row. It returns an authorization link only when a ChatGPT connector is configured for that environment. A retry using a different authorized team's connection returns its workspace. The original connection may still point to the original team after adding a new connection; that is not evidence of failed consent. Use only host-provided account selectors, and verify the intended workspace before reporting success. A working browser entry is not by itself proof of a completed team switch.
 
 ## Local edits
 
