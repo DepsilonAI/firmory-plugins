@@ -30,11 +30,11 @@ claude plugin list
 claude plugin details firmory
 ```
 
-Expect the package `firmory@firmory-plugins` and the `firmory`, `setup`, and `sync` skills. In a new session, use `/mcp` to select the plugin’s Firmory cloud server and authenticate, then ask your project or file question directly. Choose the plugin connection if a local Firmory server is also installed. From the terminal, `claude mcp list` shows this connection as `plugin:firmory:firmory_cloud`; `claude mcp login plugin:firmory:firmory_cloud` starts its OAuth flow.
+Expect the package `firmory@firmory-plugins` and the `firmory` and `sync` skills. In a new session, use `/mcp` to select the plugin’s Firmory cloud server and authenticate, then ask your project or file question directly. Choose the plugin connection if a local Firmory server is also installed. From the terminal, `claude mcp list` shows this connection as `plugin:firmory:firmory_cloud`; `claude mcp login plugin:firmory:firmory_cloud` starts its OAuth flow.
 
 ## Verify the installation
 
-In Codex, use `codex plugin list` or the Plugins panel to find Firmory. In either client, inspect the package’s three skills and the remote MCP server configuration. A configured server URL does not prove that the server is reachable or authenticated.
+In Codex, use `codex plugin list` or the Plugins panel to find Firmory. In either client, inspect the package’s two skills and the remote MCP server configuration. A configured server URL does not prove that the server is reachable or authenticated.
 
 The remote service is `https://firmory.ai/mcp`. The standalone Codex CLI may not list plugin-managed servers; inspect the installed plugin connection in the app. A 401 before sign-in is expected. Verify the **team name from the successful answer to your workspace question**. A successful install or a browser redirect alone is not a workspace verification.
 

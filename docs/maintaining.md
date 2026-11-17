@@ -17,9 +17,9 @@ claude plugin validate --strict .
 claude plugin validate --strict ./plugins/firmory
 ```
 
-Inspect the JSON files for matching identity and versions, local catalog paths, existing asset paths, and the intended HTTPS endpoint. Confirm the square directory icon is present and the three skills have valid frontmatter. Do not add `onboardingSkill`: ordinary starter prompts should execute directly, while setup remains available for explicit recovery requests.
+Inspect the JSON files for matching identity and versions, local catalog paths, existing asset paths, and the intended HTTPS endpoint. Confirm the square directory icon is present and the two skills have valid frontmatter. Do not add `onboardingSkill`: ordinary starter prompts should execute directly, connection recovery lives in the Firmory skill reference, not a standalone setup skill.
 
-Then test installation from a disposable client profile: register the local repository as a marketplace, install `firmory@firmory-plugins`, and inspect the installed components. Confirm both clients load the three skills and the `firmory_cloud` configuration. Exercise update and removal when changing package versions or catalog behavior.
+Then test installation from a disposable client profile: register the local repository as a marketplace, install `firmory@firmory-plugins`, and inspect the installed components. Confirm both clients load the two skills and the `firmory_cloud` configuration. Exercise update and removal when changing package versions or catalog behavior.
 
 Record the client versions and exact commands in the pull request. There is currently no automated CI workflow in this repository; do not treat a missing check as a pass. The Claude CLI checks package structure, not all directory requirements or cloud behavior.
 
@@ -28,7 +28,7 @@ Record the client versions and exact commands in the pull request. There is curr
 Build the client ZIPs without private review metadata.
 
 ```sh
-python3 scripts/build_distribution.py --env production --release-version 1.1.3 --public-only
+python3 scripts/build_distribution.py --env production --release-version 1.1.4 --public-only
 ```
 
 Upload only the Codex ZIP, Claude Code ZIP, and their checksums to the public GitHub Release. The OpenAI review archive is a separate portal submission and is not a public installer.

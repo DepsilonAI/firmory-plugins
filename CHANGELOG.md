@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.4 — remove the standalone setup skill (2026-11-18)
+
+- Remove the visible setup skill from every package, not just its automatic onboarding entry.
+- Keep sign-in recovery, website verification, and team reauthorization as an internal Firmory reference.
+- Validate that installers and portal archives expose only the Firmory and sync skills.
+
 ## 1.1.3 — direct tasks, reauthorization guidance, and sync choices (2026-11-17)
 
 - Remove the automatic onboarding skill entry; connected starter prompts execute their task directly.
