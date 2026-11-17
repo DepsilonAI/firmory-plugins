@@ -85,7 +85,7 @@ class DistributionTests(unittest.TestCase):
                 self.assertEqual(public.read('mcp.json'), marketplace.read('plugins/firmory/mcp.json'))
                 review_server = json.loads(review.read('mcp.json'))['mcpServers']['firmory_cloud']
                 self.assertEqual(review_server['extensions']['com.openai']['auth'], {
-                    'type': 'oauth', 'client': {'mode': 'cimd'}, 'baseScopes': ['openid'],
+                    'type': 'oauth', 'client': {'mode': 'cimd'}, 'baseScopes': ['user:org:read'],
                 })
                 self.assertEqual(review_server['url'], 'https://firmory.ai/mcp')
                 self.assertNotIn('review', json.loads(public.read('plugin.json'))['extensions']['com.openai'])

@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — restore team-scoped authorization
+
+- Authorize one team with `user:org:read`; changing teams requires reauthorization.
+- Resolve and switch projects by name within that team, querying current data without reauthorizing.
+- Withdraw account-wide team-switching instructions and distinguish hosted App connections from CLI credentials.
+
 ## 1.1.0 — account authorization and team switching (2026-11-17)
 
 - Authorize the Firmory account using `openid`, then list, inspect, and switch teams through MCP with `list_teams`, `get_current_team`, and `switch_team`.

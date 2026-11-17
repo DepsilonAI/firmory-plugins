@@ -4,13 +4,11 @@
 
 ## ZIP installation
 
-[Download Codex ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.0/firmory-1.1.0-codex.zip) · [Open Firmory in Codex](https://chatgpt.com/plugins/plugin_asdk_app_6ae80f414a488191a582e24283b42d9b)
-
 Download a client-specific ZIP from [GitHub Releases](https://github.com/DepsilonAI/firmory-plugins/releases). Drag the Codex ZIP into **Customize → Plugins** without extracting it; Codex CLI users should install from GitHub. Extract the Claude Code ZIP including its hidden catalog, and follow its README. See [Codex ZIP instructions](install-codex.md) or [Claude Code ZIP instructions](install-claude-code.md).
 
 ## Prerequisites
 
-Use a Firmory account with access to the intended team. Package inspection requires no account. Authorize your account using your client’s OAuth browser flow; never paste a token into a client configuration or chat.
+Use a Firmory account with access to the intended team. Package inspection requires no account. Sign in using your client’s OAuth browser flow; never paste a token into a client configuration or chat.
 
 Use a client with plugin marketplace support and working GitHub access. Package loading was checked with Codex CLI `0.166.0-alpha.5.1` and Claude Code `2.1.284`; these are tested versions, not claimed minimum versions. Other versions have not been verified.
 
@@ -19,7 +17,7 @@ Use a client with plugin marketplace support and working GitHub access. Package 
 1. Open Plugins and choose **Add plugin marketplace**.
 2. Enter `DepsilonAI/firmory-plugins` as the repository source, using `main` as the Git ref if requested. Leave sparse paths blank.
 3. Open the Firmory marketplace and install **Firmory**.
-4. Choose the plugin’s connection action to authorize the production service in your browser. Start a new chat and run Firmory setup to select and confirm the team. If the app does not offer sign-in, use the Codex login command in the README.
+4. Choose the plugin’s connection action to authorize the production service in your browser. Start a new chat and run Firmory setup to confirm the team. If the app does not offer sign-in, use the Codex login command in the README.
 
 UI labels can vary by client version. If the marketplace action is unavailable, use the terminal commands in the [README](../README.md#codex). Adding the marketplace and installing its plugin are separate steps. Installation is not confirmation that the cloud service is connected.
 
@@ -39,10 +37,6 @@ Expect the package `firmory@firmory-plugins` and the `firmory` and `setup` skill
 In Codex, use `codex plugin list` or the Plugins panel to find Firmory. In either client, inspect the package’s two skills and the remote MCP server configuration. A configured server URL does not prove that the server is reachable or authenticated.
 
 The remote service is `https://firmory.ai/mcp`. The standalone Codex CLI may not list plugin-managed servers; inspect the installed plugin connection in the app. A 401 before sign-in is expected. After authorization, run setup and verify the **team name from a successful cloud read**. A successful install or a browser redirect alone is not a workspace verification.
-
-## Account authorization and teams
-
-The 1.1.0 plugin uses the `openid` account scope. The MCP service provides `list_teams`, `get_current_team`, and `switch_team`. Select a team from `list_teams` before workspace operations. Switching teams changes the current MCP connection, independently of the browser. Every call still checks current membership and permissions. If a connection reports `REAUTHORIZATION_REQUIRED`, reconnect using the new account scope once. If it reports `TEAM_NOT_SELECTED`, list and select a team. See [rollout requirements](account-teams.md).
 
 ## Update
 
@@ -92,7 +86,7 @@ Start a new chat or session afterward. Removing the client plugin is separate fr
 | The URL is the old `api.firmory.ai` address or returns 404 | Update the marketplace and installed plugin, then check that `firmory_cloud` uses the production URL above. |
 | How do I follow up about a file? | Continue in the same Codex or Claude Code chat and refer to the file and version. |
 | A newer package does not appear | Refresh the marketplace, update the plugin, then start a new session. |
-| A connection shows the wrong team | Ask the AI to use list_teams and switch_team, then verify with get_current_team. An older organization-only grant requires one new account authorization. |
+| A connection shows the wrong team | Switch accounts or teams in connection settings and run setup again; wait for the service to confirm the team. |
 
 For another package problem, [open an issue](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose) with your client version, plugin version, installation command, and a redacted error. Do not include private workspace content or credentials.
 
