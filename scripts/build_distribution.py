@@ -64,12 +64,13 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
 
     common = {name: package_file(PLUGIN / name, env) for name in (
         'assets/icon.svg', 'assets/logo-blue.png', 'assets/composer-blue.png', 'README.md',
-        'skills/firmory/SKILL.md', 'skills/setup/SKILL.md',
+        'skills/firmory/SKILL.md', 'skills/setup/SKILL.md', 'skills/sync/SKILL.md',
     )}
     if (PLUGIN / 'LICENSE').is_file():
         common['LICENSE'] = (PLUGIN / 'LICENSE').read_bytes()
     common['plugin.json'] = json_bytes(portable)
-    runtime = {**common, 'mcp.json': json_bytes(configs['mcp.json']),
+    local_hooks = {name: (PLUGIN / name).read_bytes() for name in ('hooks/hooks.json', 'hooks/sync_reminder.py')}
+    runtime = {**common, **local_hooks, 'mcp.json': json_bytes(configs['mcp.json']),
                '.mcp.json': json_bytes(configs['.mcp.json']),
                '.claude-plugin/plugin.json': json_bytes(claude),
                '.claude-plugin/icon.png': (PLUGIN / '.claude-plugin/icon.png').read_bytes()}
@@ -77,7 +78,7 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
     marketplace.update({k: (ROOT / k).read_bytes() for k in CATALOGS})
     marketplace['README.md'] = common['README.md']
     # ZIP uploaders accept one plugin root, not a nested marketplace catalog.
-    distributions = {'codex': {**common, 'mcp.json': runtime['mcp.json'],
+    distributions = {'codex': {**common, **local_hooks, 'mcp.json': runtime['mcp.json'],
                                'README.md': package_file(ROOT / 'docs/install-codex.md', env)}}
     for client, catalog in [('claude-code', CATALOGS[1])]:
         files = {k: v for k, v in marketplace.items() if k not in CATALOGS or k == catalog}

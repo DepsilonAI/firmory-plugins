@@ -3,7 +3,7 @@
 [Illustrated installation guide](https://firmory.ai/download#codex) · [Releases](https://github.com/DepsilonAI/firmory-plugins/releases)
 
 1. Install Codex with plugin support and sign in to your account.
-2. Open **Customize → Plugins** in Codex. Drag `firmory-1.1.0-codex.zip` into that page and follow the installation prompts. Keep the ZIP compressed; no extraction is needed.
+2. Open **Customize → Plugins** in Codex. Drag `firmory-1.1.2-codex.zip` into that page and follow the installation prompts. Keep the ZIP compressed; no extraction is needed.
 3. Connect Firmory in your client's MCP settings. If needed, run this in the terminal.
 
 ```sh
@@ -27,3 +27,7 @@ codex plugin add firmory@firmory-plugins
 ```
 
 This ZIP connects to https://firmory.ai/mcp using browser sign-in. It can read the files your team permits and save changes when you ask. [Privacy](https://firmory.ai/privacy) · [Terms](https://firmory.ai/terms).
+
+## Sync reminders
+
+Local installers include a file-edit hook. Enable and trust the hook when your client asks; Python 3 must be available. After local edits, Firmory offers Sync to Firmory or Later at task completion. Nothing uploads until you choose Sync. Hooks cover supported editing tools, not arbitrary shell commands or external editors. The web plugin uses conversation instructions and cannot watch local files.
