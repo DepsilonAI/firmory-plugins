@@ -49,13 +49,15 @@ class DistributionTests(unittest.TestCase):
                 self.assertEqual((manifest['name'], manifest['version']), ('firmory', '1.0.1'))
                 metadata = manifest['extensions']['com.openai']
                 self.assertNotIn('review', metadata)
-                for path in [metadata['interface']['logo'], metadata['interface']['composerIcon'], metadata['onboardingSkill']]:
+                self.assertNotIn('onboardingSkill', metadata)
+                for path in [metadata['interface']['logo'], metadata['interface']['composerIcon']]:
                     self.assertIn(path.removeprefix('./'), names)
                 mcp = json.loads(archive.read('mcp.json'))
                 self.assertEqual(mcp['mcpServers'], {'firmory_cloud': {
                     'type': 'streamable-http', 'url': 'https://firmory.ai/mcp',
                 }})
                 self.assertIn('skills/firmory/SKILL.md', names)
+                self.assertIn('skills/setup/SKILL.md', names)
                 self.assertIn('skills/sync/SKILL.md', names)
                 self.assertIn('hooks/hooks.json', names)
                 self.assertIn('hooks/sync_reminder.py', names)
@@ -93,6 +95,7 @@ class DistributionTests(unittest.TestCase):
                 self.assertEqual(review_server['url'], 'https://firmory.ai/mcp')
                 self.assertNotIn('review', json.loads(public.read('plugin.json'))['extensions']['com.openai'])
                 self.assertIn('review', json.loads(review.read('plugin.json'))['extensions']['com.openai'])
+                self.assertNotIn('onboardingSkill', json.loads(review.read('plugin.json'))['extensions']['com.openai'])
                 self.assertFalse(any(name.startswith('hooks/') for name in review.namelist()))
                 self.assertIn('skills/sync/SKILL.md', review.namelist())
                 runtime = json.loads(marketplace.read('plugins/firmory/mcp.json'))

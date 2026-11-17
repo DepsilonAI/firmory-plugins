@@ -2,7 +2,7 @@
 
 Build on shared digital assets
 
-Use Firmory in Codex or Claude Code to find the projects you can access, check which version of a brief informed a report, or follow a specification to documents that cite it. Run Firmory setup, sign in through the browser, and confirm the team name. Claude Code users can run `/firmory:setup`.
+Use Firmory in Codex or Claude Code to find the projects you can access, check which version of a brief informed a report, or follow a specification to documents that cite it. Ask your question directly. If sign-in is needed, authorize your team in the browser and continue the task. A separate setup question is not required. Ask to change teams when you need a different team's authorization; project changes within the authorized team do not require sign-in.
 
 The plugin connects to its configured `firmory_cloud` service over HTTPS. The host sends tool arguments such as search terms, file identifiers, and versions to Firmory. The service returns records available to the signed-in team. The lookup workflow uses read operations. Follow-up questions stay in the current client conversation.
 

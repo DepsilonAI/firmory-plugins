@@ -17,7 +17,7 @@ claude plugin install firmory@firmory-plugins
 claude mcp login plugin:firmory:firmory_cloud
 ```
 
-5. In the browser, sign in to Firmory, select your team and allow access. Start a new chat and run Firmory setup to confirm the team. In Claude Code, run /firmory:setup.
+5. In the browser, sign in to Firmory, select your team and allow access. Ask "Show me the projects and files available in my workspace". Firmory verifies the team while answering; no separate setup question is needed.
 6. Ask a first question.
 
 - Show me the projects and files available in my workspace
@@ -37,4 +37,4 @@ This ZIP connects to https://firmory.ai/mcp using browser sign-in. It can read t
 
 ## Sync reminders
 
-Local installers include a file-edit hook. Enable and trust the hook when your client asks; Python 3 must be available. After local edits, Firmory offers Sync to Firmory or Later at task completion. Nothing uploads until you choose Sync. Hooks cover supported editing tools, not arbitrary shell commands or external editors. The web plugin uses conversation instructions and cannot watch local files.
+Local installers include a file-edit hook. Enable and trust the hook when your client asks; Python 3 must be available. At task completion, Firmory offers Sync now, Remind me next time, or Sync settings using available host choices. "Edit locally first" skips the sync question and upload. Settings support asking after changes, explicitly authorized automatic sync of linked files, or manual sync only, scoped to the current user/team/project/local workspace. Local clients can remember the mode when requested; web clients without persistent preferences keep it in the current conversation. Automatic mode handles future observed edits, not background syncing, and never silently overwrites conflicts. Hooks cannot watch arbitrary shell commands or external editors; web plugins cannot watch local files.

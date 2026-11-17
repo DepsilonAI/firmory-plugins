@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.3 — direct tasks, reauthorization guidance, and sync choices (2026-11-17)
+
+- Remove the automatic onboarding skill entry; connected starter prompts execute their task directly.
+- Keep explicit connection recovery available, discover the team-reauthorization tool before falling back, and avoid obsolete cross-team tools from stale host metadata.
+- Respect local-first instructions without an immediate sync question or upload.
+- Offer native Sync now / Remind me next time / Sync settings choices with actual file links and destination context.
+- Support scoped ask, automatic linked-file sync, and manual-only preferences; local persistence is opt-in, and unsupported hosts remain conversation-scoped.
+- Preserve local-only changes and stop on conflicts, unknown write outcomes, or changed authorization scope.
+
 ## 1.1.2 — team authorization and sync reminders (2026-11-17)
 
 - Authorize one team with `user:org:read`; changing teams requires reauthorization.
