@@ -10,11 +10,11 @@ English · [繁體中文](README.zh-TW.md)
 
 [Website](https://firmory.ai/) · [Installation guide](docs/installation.md) · [Changelog](CHANGELOG.md) · [Report a problem](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-**Version 1.1.2** · [MCP endpoint](https://firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
+**Version 1.1.3** · [MCP endpoint](https://firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
 
 ## ZIP downloads
 
-[Codex ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.2/firmory-1.1.2-codex.zip) · [Open Firmory in Codex](https://chatgpt.com/plugins/plugin_asdk_app_6ae80f414a488191a582e24283b42d9b) · [Claude Code ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.2/firmory-1.1.2-claude-code.zip) · [Illustrated installation guide](https://firmory.ai/download#plugins)
+[Codex ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.3/firmory-1.1.3-codex.zip) · [Open Firmory in Codex](https://chatgpt.com/plugins/plugin_asdk_app_6ae80f414a488191a582e24283b42d9b) · [Claude Code ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.3/firmory-1.1.3-claude-code.zip) · [Illustrated installation guide](https://firmory.ai/download#plugins)
 
 Drag the Codex ZIP into **Customize → Plugins** without extracting it, or use the GitHub install commands below for Codex CLI. Extract the Claude Code ZIP and follow its README.
 
@@ -26,7 +26,7 @@ codex plugin add firmory@firmory-plugins
 codex -c 'mcp_servers.firmory_cloud.url="https://firmory.ai/mcp"' mcp login firmory_cloud --scopes user:org:read --oauth-client-registration cimd
 ```
 
-Complete sign-in in the browser. Open a new chat and run Firmory setup to confirm the connected team. To install from the app, see the [installation guide](docs/installation.md).
+Complete sign-in in the browser, then ask "Show me the projects and files available in my workspace". Firmory verifies the team while answering; no separate setup question is required. To install from the app, see the [installation guide](docs/installation.md).
 
 ## Claude Code
 
@@ -35,7 +35,7 @@ claude plugin marketplace add DepsilonAI/firmory-plugins
 claude plugin install firmory@firmory-plugins
 ```
 
-Start a new session. Use `/mcp` to authenticate the Firmory cloud connection, then run `/firmory:setup`. Access requires a Firmory account with team access. No local Firmory CLI is needed.
+Start a new session. Use `/mcp` to authenticate the Firmory cloud connection, then ask "Show me the projects and files available in my workspace". Access requires a Firmory account with team access. No local Firmory CLI is needed.
 
 ## Start a conversation
 

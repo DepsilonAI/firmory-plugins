@@ -17,7 +17,7 @@ claude plugin install firmory@firmory-plugins
 claude mcp login plugin:firmory:firmory_cloud
 ```
 
-5. In the browser, sign in to Firmory, select your team and allow access. Start a new chat and run Firmory setup to confirm the team. In Claude Code, run /firmory:setup.
+5. In the browser, sign in to Firmory, select your team and allow access. Ask "Show me the projects and files available in my workspace". Firmory verifies the team while answering; no separate setup question is needed.
 6. Ask a first question.
 
 - Show me the projects and files available in my workspace

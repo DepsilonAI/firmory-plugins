@@ -4,7 +4,7 @@
 
 The store name is Firmory, the stable plugin ID is `firmory`, and the marketplace ID is `firmory-plugins`. Both catalogs reference `plugins/firmory`. Keep the portable manifest and Claude manifest version, identity, description, and repository metadata aligned.
 
-The portable `mcp.json` and Claude `.mcp.json` describe the same `firmory_cloud` HTTPS service using their respective transport formats. Shared skills and brand assets live inside the plugin folder. The current package has no lifecycle hooks, local executable, or install-time dependency installation.
+The portable `mcp.json` and Claude `.mcp.json` describe the same `firmory_cloud` HTTPS service using their respective transport formats. Shared skills and brand assets live inside the plugin folder. Local installers include an opt-in Python file-edit hook; public portal packages omit local hooks. There is no install-time dependency installation.
 
 The root README is for repository visitors. The plugin README is part of the installed package and must remain useful on its own.
 
@@ -17,9 +17,9 @@ claude plugin validate --strict .
 claude plugin validate --strict ./plugins/firmory
 ```
 
-Inspect the JSON files for matching identity and versions, local catalog paths, existing asset paths, and the intended HTTPS endpoint. Confirm the square directory icon is present and the two skills have valid frontmatter.
+Inspect the JSON files for matching identity and versions, local catalog paths, existing asset paths, and the intended HTTPS endpoint. Confirm the square directory icon is present and the three skills have valid frontmatter. Do not add `onboardingSkill`: ordinary starter prompts should execute directly, while setup remains available for explicit recovery requests.
 
-Then test installation from a disposable client profile: register the local repository as a marketplace, install `firmory@firmory-plugins`, and inspect the installed components. Confirm both clients load the two skills and the `firmory_cloud` configuration. Exercise update and removal when changing package versions or catalog behavior.
+Then test installation from a disposable client profile: register the local repository as a marketplace, install `firmory@firmory-plugins`, and inspect the installed components. Confirm both clients load the three skills and the `firmory_cloud` configuration. Exercise update and removal when changing package versions or catalog behavior.
 
 Record the client versions and exact commands in the pull request. There is currently no automated CI workflow in this repository; do not treat a missing check as a pass. The Claude CLI checks package structure, not all directory requirements or cloud behavior.
 
@@ -28,7 +28,7 @@ Record the client versions and exact commands in the pull request. There is curr
 Build the client ZIPs without private review metadata.
 
 ```sh
-python3 scripts/build_distribution.py --env production --release-version 1.1.2 --public-only
+python3 scripts/build_distribution.py --env production --release-version 1.1.3 --public-only
 ```
 
 Upload only the Codex ZIP, Claude Code ZIP, and their checksums to the public GitHub Release. The OpenAI review archive is a separate portal submission and is not a public installer.
