@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — contextual sync choices
+
+- Respect local-first instructions without an immediate sync question or upload.
+- Offer native Sync now / Remind me next time / Sync settings choices with actual file links and destination context.
+- Support scoped ask, automatic linked-file sync, and manual-only preferences; local persistence is opt-in, and unsupported hosts remain conversation-scoped.
+- Preserve local-only changes and stop on conflicts, unknown write outcomes, or changed authorization scope.
+
 ## 1.1.2 — team authorization and sync reminders (2026-11-17)
 
 - Authorize one team with `user:org:read`; changing teams requires reauthorization.

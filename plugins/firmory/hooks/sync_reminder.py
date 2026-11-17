@@ -14,12 +14,14 @@ def reminder(event):
                                      or response.get("exit_code", 0) not in (0, None)):
         return None
     return {"hookSpecificOutput": {"hookEventName": "PostToolUse", "additionalContext": (
-        "Firmory: if this tool actually changed user deliverable files locally, include one concise "
-        "sync reminder in your next task-completion response, in the user's language. Group all "
-        "changes in this task; do not interrupt each edit. Name the changed deliverables and offer "
-        "Sync to Firmory or Later. Follow the Firmory sync skill if the user chooses Sync. Do not "
-        "upload automatically or repeat a reminder for unchanged or already-synced versions. "
-        "Skip failed/no-op edits, temporary/build files, and changes already saved through Firmory."
+        "Firmory: after actual local deliverable changes, follow the Firmory sync skill at task "
+        "completion. Respect the user's latest local-only instruction and scoped sync preference. "
+        "Local-only means no upload or immediate sync question; manual mode means no unsolicited "
+        "sync prompt. Otherwise use the skill's grouped human-choice flow or explicitly authorized "
+        "automatic mode. Do not upload automatically without explicit consent for the verified "
+        "scope and linked files. Never treat this hook as consent. Do not interrupt each edit, "
+        "fabricate buttons/links, or repeat unchanged reminders. Skip failed/no-op edits, "
+        "temporary/build/dependency/preference files, and versions already saved through Firmory."
     )}}
 
 
