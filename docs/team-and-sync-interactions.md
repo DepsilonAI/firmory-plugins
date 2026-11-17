@@ -2,7 +2,7 @@
 
 ## Change team
 
-User asks to change team → read current workspace → request_team_authorization(currentTeamId) → current-team card → user clicks Change team → the card calls request_team_authorization(currentTeamId, authorize=true) through the host → host OAuth UI → choose Change on Firmory consent and authorize the target team → verify workspace → resume the original task. On clients without Apps UI, the model can request native OAuth once with authorize=true when supported by the advertised schema. If authorization is cancelled or the team is wrong, report that outcome without repeating the login flow. If the host does not surface the auth challenge, use its existing connection settings. Project changes never use this flow.
+User asks to change team → read current workspace → request_team_authorization(currentTeamId) → host native OAuth → select the target team and authorize → verify workspace → resume the original task. No custom authorization card is used. The deprecated optional authorize argument remains accepted while clients refresh their approved tool schemas. If authorization is cancelled or the team is wrong, report that outcome without repeating the login flow. If the host does not surface the challenge, stop rather than repeating the same action. Project changes never use this flow.
 
 The MCP tool changes no membership, grant, or selected-team row. A retry with a newly authorized team returns its workspace, preventing another challenge after success. Actual OAuth UI behavior must be tested in each host; a valid protocol response alone is not proof that a browser opened.
 
