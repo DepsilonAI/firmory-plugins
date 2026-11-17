@@ -34,3 +34,7 @@ claude plugin install firmory@firmory-plugins
 ```
 
 This ZIP connects to https://firmory.ai/mcp using browser sign-in. It can read the files your team permits and save changes when you ask. [Privacy](https://firmory.ai/privacy) · [Terms](https://firmory.ai/terms).
+
+## Sync reminders
+
+Local installers include a file-edit hook. Enable and trust the hook when your client asks; Python 3 must be available. After local edits, Firmory offers Sync to Firmory or Later at task completion. Nothing uploads until you choose Sync. Hooks cover supported editing tools, not arbitrary shell commands or external editors. The web plugin uses conversation instructions and cannot watch local files.

@@ -1,10 +1,12 @@
 # Changelog
 
-## Unreleased — restore team-scoped authorization
+## 1.1.2 — team authorization and sync reminders (2026-11-17)
 
 - Authorize one team with `user:org:read`; changing teams requires reauthorization.
 - Resolve and switch projects by name within that team, querying current data without reauthorizing.
 - Withdraw account-wide team-switching instructions and distinguish hosted App connections from CLI credentials.
+- Request the host authorization UI when changing teams, then verify the returned workspace.
+- Offer Sync to Firmory or Later after local edits; local installers include an opt-in file-edit hook. Portal packages keep the sync skill without local hooks.
 
 ## 1.1.0 — account authorization and team switching (2026-11-17)
 

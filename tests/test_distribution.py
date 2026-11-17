@@ -56,6 +56,9 @@ class DistributionTests(unittest.TestCase):
                     'type': 'streamable-http', 'url': 'https://firmory.ai/mcp',
                 }})
                 self.assertIn('skills/firmory/SKILL.md', names)
+                self.assertIn('skills/sync/SKILL.md', names)
+                self.assertIn('hooks/hooks.json', names)
+                self.assertIn('hooks/sync_reminder.py', names)
                 for name in names:
                     if name.endswith(('.md', '.json')):
                         self.assertIsNone(re.search(r'[\u3400-\u4dbf\u4e00-\u9fff]', archive.read(name).decode()), name)
@@ -90,6 +93,8 @@ class DistributionTests(unittest.TestCase):
                 self.assertEqual(review_server['url'], 'https://firmory.ai/mcp')
                 self.assertNotIn('review', json.loads(public.read('plugin.json'))['extensions']['com.openai'])
                 self.assertIn('review', json.loads(review.read('plugin.json'))['extensions']['com.openai'])
+                self.assertFalse(any(name.startswith('hooks/') for name in review.namelist()))
+                self.assertIn('skills/sync/SKILL.md', review.namelist())
                 runtime = json.loads(marketplace.read('plugins/firmory/mcp.json'))
                 self.assertNotIn('extensions', runtime['mcpServers']['firmory_cloud'])
 

@@ -10,7 +10,7 @@
 
 [官網](https://firmory.ai/) · [安裝指南（英文）](docs/installation.md) · [版本紀錄（英文）](CHANGELOG.md) · [回報問題](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-**版本 1.1.0** · [MCP 端點](https://firmory.ai/mcp)。套件由 Firmory 自有的 marketplace 提供。
+**版本 1.1.2** · [MCP 端點](https://firmory.ai/mcp)。套件由 Firmory 自有的 marketplace 提供。
 
 ## Codex
 

@@ -10,11 +10,11 @@ English · [繁體中文](README.zh-TW.md)
 
 [Website](https://firmory.ai/) · [Installation guide](docs/installation.md) · [Changelog](CHANGELOG.md) · [Report a problem](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-**Version 1.1.0** · [MCP endpoint](https://firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
+**Version 1.1.2** · [MCP endpoint](https://firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
 
 ## ZIP downloads
 
-[Codex ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.0/firmory-1.1.0-codex.zip) · [Open Firmory in Codex](https://chatgpt.com/plugins/plugin_asdk_app_6ae80f414a488191a582e24283b42d9b) · [Claude Code ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.0/firmory-1.1.0-claude-code.zip) · [Illustrated installation guide](https://firmory.ai/download#plugins)
+[Codex ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.2/firmory-1.1.2-codex.zip) · [Open Firmory in Codex](https://chatgpt.com/plugins/plugin_asdk_app_6ae80f414a488191a582e24283b42d9b) · [Claude Code ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.2/firmory-1.1.2-claude-code.zip) · [Illustrated installation guide](https://firmory.ai/download#plugins)
 
 Drag the Codex ZIP into **Customize → Plugins** without extracting it, or use the GitHub install commands below for Codex CLI. Extract the Claude Code ZIP and follow its README.
 

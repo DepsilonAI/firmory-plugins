@@ -28,7 +28,7 @@ Record the client versions and exact commands in the pull request. There is curr
 Build the client ZIPs without private review metadata.
 
 ```sh
-python3 scripts/build_distribution.py --env production --release-version 1.1.0 --public-only
+python3 scripts/build_distribution.py --env production --release-version 1.1.2 --public-only
 ```
 
 Upload only the Codex ZIP, Claude Code ZIP, and their checksums to the public GitHub Release. The OpenAI review archive is a separate portal submission and is not a public installer.
