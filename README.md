@@ -23,10 +23,10 @@ Drag the Codex ZIP into **Customize → Plugins** without extracting it, or use 
 ```sh
 codex plugin marketplace add DepsilonAI/firmory-plugins
 codex plugin add firmory@firmory-plugins
-codex -c 'mcp_servers.firmory_cloud.url="https://firmory.ai/mcp"' mcp login firmory_cloud --scopes openid --oauth-client-registration cimd
+codex -c 'mcp_servers.firmory_cloud.url="https://firmory.ai/mcp"' mcp login firmory_cloud --scopes user:org:read --oauth-client-registration cimd
 ```
 
-Authorize your Firmory account in the browser. Open a new chat and run Firmory setup to select and confirm the team. The account can access its permitted teams without signing in again for each switch. To install from the app, see the [installation guide](docs/installation.md).
+Complete sign-in in the browser. Open a new chat and run Firmory setup to confirm the connected team. To install from the app, see the [installation guide](docs/installation.md).
 
 ## Claude Code
 
@@ -43,11 +43,7 @@ Start a new session. Use `/mcp` to authenticate the Firmory cloud connection, th
 - Find the project brief and summarize its goals and key decisions
 - Open "Welcome.pdf" and summarize its key points
 
-Ask "Which team am I using?", "List my teams", or "Switch to the Design team". The AI uses `get_current_team`, `list_teams`, and `switch_team`; subsequent file operations use the selected team. Firmory checks current membership and permissions on every operation. Team selection is shared by calls using the same OAuth credential and is independent of the team selected in the browser.
-
-Firmory returns records visible in the selected team. You can follow up about a file or version in the same Codex or Claude Code conversation.
-
-Version 1.1.0 requires the account-aware MCP backend described in [the rollout guide](docs/account-teams.md). Older published downloads use organization-bound authorization; reconnect once with the account scope after rollout.
+Firmory returns records visible to your team. You can follow up about a file or version in the same Codex or Claude Code conversation.
 
 ## Data and access
 

@@ -17,10 +17,10 @@
 ```sh
 codex plugin marketplace add DepsilonAI/firmory-plugins
 codex plugin add firmory@firmory-plugins
-codex -c 'mcp_servers.firmory_cloud.url="https://firmory.ai/mcp"' mcp login firmory_cloud --scopes openid --oauth-client-registration cimd
+codex -c 'mcp_servers.firmory_cloud.url="https://firmory.ai/mcp"' mcp login firmory_cloud --scopes user:org:read --oauth-client-registration cimd
 ```
 
-在瀏覽器登入並授權 Firmory 帳號，再開新對話執行 Firmory 設定，選擇並確認團隊。之後可直接請 AI 透過 MCP 列出團隊、查看目前團隊或切換團隊，不必每次重新授權。桌面版安裝方式見[安裝指南](docs/installation.md)。
+在瀏覽器完成登入與授權，再開新對話執行 Firmory 設定，確認連接的團隊。桌面版安裝方式見[安裝指南](docs/installation.md)。
 
 ## Claude Code
 
@@ -38,8 +38,6 @@ claude plugin install firmory@firmory-plugins
 - 開啟「Welcome.pdf」，整理重點。
 
 Firmory 會傳回團隊有權查看的紀錄。若想追問某份文件或某個版本，可在同一個 Codex 或 Claude Code 對話繼續。
-
-版本 1.1.0 需要配套的帳號級 MCP 後端；部署順序見[說明（英文）](docs/account-teams.md)。舊的組織級連線需在部署後重新授權一次。團隊選擇依 OAuth 連線保存，與瀏覽器目前團隊互相獨立；每次操作仍檢查即時成員權限。
 
 ## 資料如何使用
 

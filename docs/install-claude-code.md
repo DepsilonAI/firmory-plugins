@@ -17,7 +17,7 @@ claude plugin install firmory@firmory-plugins
 claude mcp login plugin:firmory:firmory_cloud
 ```
 
-5. In the browser, sign in to Firmory and authorize your account. Start a new chat and run Firmory setup to select and confirm the team. You can then ask the AI to view or switch teams through MCP without signing in again. In Claude Code, run /firmory:setup.
+5. In the browser, sign in to Firmory, select your team and allow access. Start a new chat and run Firmory setup to confirm the team. In Claude Code, run /firmory:setup.
 6. Ask a first question.
 
 - Show me the projects and files available in my workspace
@@ -32,7 +32,5 @@ These commands install the production plugin from GitHub. To keep this ZIP's env
 claude plugin marketplace add DepsilonAI/firmory-plugins
 claude plugin install firmory@firmory-plugins
 ```
-
-This version requires the account-aware MCP backend. Existing organization-only connections need one new account authorization after rollout.
 
 This ZIP connects to https://firmory.ai/mcp using browser sign-in. It can read the files your team permits and save changes when you ask. [Privacy](https://firmory.ai/privacy) · [Terms](https://firmory.ai/terms).
