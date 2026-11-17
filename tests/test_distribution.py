@@ -28,9 +28,13 @@ class DistributionTests(unittest.TestCase):
                         if name.endswith('mcp.json'):
                             server = json.loads(archive.read(name))['mcpServers']['firmory_cloud']
                             self.assertEqual(server['url'], 'https://preview.firmory.ai/mcp')
-                    setup = next(name for name in archive.namelist() if name.endswith('skills/setup/SKILL.md'))
-                    self.assertIn(b'https://preview.firmory.ai/mcp', archive.read(setup))
-                    self.assertIn(b'`verify_connection`', archive.read(setup))
+                    skills = {name.split('/skills/', 1)[-1] if '/skills/' in name else name.removeprefix('skills/')
+                              for name in archive.namelist() if name.endswith('/SKILL.md')}
+                    self.assertEqual(skills, {'firmory/SKILL.md', 'sync/SKILL.md'})
+                    self.assertFalse(any('skills/setup/' in name for name in archive.namelist()))
+                    connection = next(name for name in archive.namelist() if name.endswith('skills/firmory/references/connection.md'))
+                    self.assertIn(b'https://preview.firmory.ai/mcp', archive.read(connection))
+                    self.assertIn(b'`verify_connection`', archive.read(connection))
                     if path.name.endswith('-codex.zip'):
                         self.assertIn(b'https://preview.firmory.ai/mcp', archive.read('README.md'))
 
@@ -57,7 +61,8 @@ class DistributionTests(unittest.TestCase):
                     'type': 'streamable-http', 'url': 'https://firmory.ai/mcp',
                 }})
                 self.assertIn('skills/firmory/SKILL.md', names)
-                self.assertIn('skills/setup/SKILL.md', names)
+                self.assertNotIn('skills/setup/SKILL.md', names)
+                self.assertIn('skills/firmory/references/connection.md', names)
                 self.assertIn('skills/sync/SKILL.md', names)
                 self.assertIn('hooks/hooks.json', names)
                 self.assertIn('hooks/sync_reminder.py', names)
@@ -98,6 +103,11 @@ class DistributionTests(unittest.TestCase):
                 self.assertNotIn('onboardingSkill', json.loads(review.read('plugin.json'))['extensions']['com.openai'])
                 self.assertFalse(any(name.startswith('hooks/') for name in review.namelist()))
                 self.assertIn('skills/sync/SKILL.md', review.namelist())
+                for archive in (public, review, marketplace):
+                    self.assertFalse(any('skills/setup/' in name for name in archive.namelist()))
+                    for name in archive.namelist():
+                        if name.endswith('.md'):
+                            self.assertNotIn(b'../setup/SKILL.md', archive.read(name))
                 runtime = json.loads(marketplace.read('plugins/firmory/mcp.json'))
                 self.assertNotIn('extensions', runtime['mcpServers']['firmory_cloud'])
 

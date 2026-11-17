@@ -10,11 +10,11 @@ English · [繁體中文](README.zh-TW.md)
 
 [Website](https://firmory.ai/) · [Installation guide](docs/installation.md) · [Changelog](CHANGELOG.md) · [Report a problem](https://github.com/DepsilonAI/firmory-plugins/issues/new/choose)
 
-**Version 1.1.3** · [MCP endpoint](https://firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
+**Version 1.1.4** · [MCP endpoint](https://firmory.ai/mcp). This package is distributed from Firmory’s own marketplace.
 
 ## ZIP downloads
 
-[Codex ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.3/firmory-1.1.3-codex.zip) · [Open Firmory in Codex](https://chatgpt.com/plugins/plugin_asdk_app_6ae80f414a488191a582e24283b42d9b) · [Claude Code ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.3/firmory-1.1.3-claude-code.zip) · [Illustrated installation guide](https://firmory.ai/download#plugins)
+[Codex ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.4/firmory-1.1.4-codex.zip) · [Open Firmory in Codex](https://chatgpt.com/plugins/plugin_asdk_app_6ae80f414a488191a582e24283b42d9b) · [Claude Code ZIP](https://github.com/DepsilonAI/firmory-plugins/releases/download/v1.1.4/firmory-1.1.4-claude-code.zip) · [Illustrated installation guide](https://firmory.ai/download#plugins)
 
 Drag the Codex ZIP into **Customize → Plugins** without extracting it, or use the GitHub install commands below for Codex CLI. Extract the Claude Code ZIP and follow its README.
 
@@ -60,7 +60,7 @@ plugins/firmory/
   .claude-plugin/plugin.json           Claude manifest
   .claude-plugin/icon.png              Claude directory icon
   .mcp.json                           Claude remote MCP configuration
-  skills/                             Shared setup and Firmory workflows
+  skills/                             Firmory and sync workflows; internal connection reference
   assets/                             Shared brand assets
 ```
 

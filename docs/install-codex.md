@@ -3,7 +3,7 @@
 [Illustrated installation guide](https://firmory.ai/download#codex) · [Releases](https://github.com/DepsilonAI/firmory-plugins/releases)
 
 1. Install Codex with plugin support and sign in to your account.
-2. Open **Customize → Plugins** in Codex. Drag `firmory-1.1.3-codex.zip` into that page and follow the installation prompts. Keep the ZIP compressed; no extraction is needed.
+2. Open **Customize → Plugins** in Codex. Drag `firmory-1.1.4-codex.zip` into that page and follow the installation prompts. Keep the ZIP compressed; no extraction is needed.
 3. Connect Firmory in your client's MCP settings. If needed, run this in the terminal.
 
 ```sh

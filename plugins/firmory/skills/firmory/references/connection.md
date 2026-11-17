@@ -1,11 +1,6 @@
----
-name: setup
-description: Recover a missing Firmory connection or explicitly request team reauthorization, then continue the user's original task.
----
-
 # Connect Firmory
 
-Use this skill only for missing authorization, an explicit connection request, or changing the authorized team. Connected starter questions use the Firmory skill directly; do not route them through a separate setup conversation. Preserve the user's original task and continue it after authorization. Do not produce a generic welcome, repeat the plugin name, or ask the user to retype a task that can already run.
+Use this reference within the Firmory skill only for missing authorization, an explicit connection request, or changing the authorized team. Connected starter questions run directly; there is no separate setup skill or conversation. Preserve the user's original task and continue it after authorization. Do not produce a generic welcome, repeat the plugin name, or ask the user to retype a task that can already run.
 
 If the user explicitly requests reauthorization or a team change, use Change the authorized team below even when the current connection still works. A successful workspace read is not completion of that request.
 
@@ -15,7 +10,7 @@ If the user explicitly requests reauthorization or a team change, use Change the
 4. Once the host reports authorization complete, rediscover tools if necessary and call `workspace({})` again. Check `isError` before reading `structuredContent.team.name`, `space.rootNodeId`, or `space.teamLibraryNodeId`. Only confirm connection after a successful workspace response. Resume the original read-only question automatically when the host allows continuation; do not require a special reply such as "Connected". If the host requires another turn, tell the user to retry their original question once authorization finishes.
 5. On declined authorization, stop. On a service outage or permission error, report that error instead of starting an endless sign-in loop. When the user asks to switch teams, follow the flow below.
 
-If an explicit setup request has no pending task, finish by showing the authorized team and its current accessible projects via `browse_folder` on the returned root, using pagination or clearly marking a partial listing. Do not end with "Connected, try asking...". For a verification-only request, report the verified connection without unrelated browsing. Otherwise continue the original task using the Firmory skill. Answer in the user's language; the supplied starter questions remain in English.
+If an explicit connection request has no pending task, finish by showing the authorized team and its current accessible projects via `browse_folder` on the returned root, using pagination or clearly marking a partial listing. Do not end with "Connected, try asking...". For a verification-only request, report the verified connection without unrelated browsing. Otherwise continue the original task using the Firmory skill. Answer in the user's language; the supplied starter questions remain in English.
 
 ## Verify a connection requested by the Firmory website
 
