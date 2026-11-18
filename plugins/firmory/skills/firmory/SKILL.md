@@ -13,7 +13,7 @@ Run the user's task directly. If the connection's team is not yet verified, call
 
 - **Connect, reauthorize, or change teams:** read [connection.md](references/connection.md). Team changes require consent on the existing connection, even when its current credentials work.
 - **Change projects:** resolve the requested project with fresh `search` or `browse_folder` results and use its returned ID. Ask when names are ambiguous. Project changes and newly created projects do not require reauthorization.
-- **Inspect or edit a local copy:** retain its local path, Firmory node ID, exact remote version, and baseline content or digest. Whenever new local changes are observed, use the [sync workflow](../sync/SKILL.md) in the same response. This includes edits made by the user and discovered through a read or comparison.
+- **Inspect or edit a linked file:** retain its local path, Firmory node ID, exact remote version, and baseline content or digest. Whenever a local change or remote version mismatch is observed, run the [sync workflow](../sync/SKILL.md) in the same task without waiting for a sync request. This includes manual edits discovered through a read and stale versions returned by Firmory. Check relevant linked files before editing and before reporting completion; do not scan unrelated files.
 
 Do not silently change teams or call obsolete `list_teams`, `get_current_team`, or `switch_team` tools from stale metadata. Query current projects and files again when asked; do not rely on a previous listing.
 
@@ -48,6 +48,6 @@ Keep follow-ups in the current client. File cards, download URLs, and generic Fi
 
 ## Local changes
 
-A newly observed change triggers the sync workflow regardless of who edited the file or which tool detected it. Unchanged downloads and ordinary reads do not. Keep the accepted remote version separate from the last inspected or prompted snapshot.
+A newly observed change or version mismatch triggers the sync workflow regardless of who edited the file or which tool detected it. A locally unchanged file can still have a newer remote version; inspect that mismatch before skipping the workflow. Keep the accepted remote version separate from the last inspected or prompted snapshot. Do not rely on hooks or claim to monitor files between tasks.
 
 Offer **Sync now**, **Enable automatic sync**, or **Not this time, remind me next time**, unless the user chose local-only/manual behavior or already authorized automatic sync for this scope. A request for a local path does not establish manual-only mode. One-time sync approval does not cover later revisions. Follow the sync skill for scope, conflicts, consent, and persistence.

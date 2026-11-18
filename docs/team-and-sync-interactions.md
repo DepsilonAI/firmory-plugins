@@ -12,7 +12,7 @@ Client verification is still required. An auth-required response does not prove 
 
 ## Local edits
 
-The sync skill owns the interaction. Hooks only supply context; they do not upload or authorize anything. Native host choices are preferred, with plain-text fallback. Links navigate to actual files; they never stand in for sync actions.
+The sync skill owns the interaction and works without hooks. During tasks, the agent checks relevant linked files against their recorded baseline and current remote version before editing and before sync or completion. Hooks in local distributions only supply additional context; they do not upload or authorize anything. Native host choices are preferred, with plain-text fallback. Links navigate to actual files; they never stand in for sync actions.
 
 User: "Add 111 to test.md, edit locally first."
 
@@ -67,3 +67,9 @@ These cases require testing an installed candidate in each intended host. Hook/a
 | Web without persistent preferences | State conversation-only scope. |
 | Conflict, cancellation, partial failure, unknown outcome | Preserve local edits; accurate status; no retry loop or duplicate save. |
 | Successful automatic save | Brief accepted result/version, no new sync question. |
+| Observed local change or remote version mismatch without a sync request | Run the sync checks in the same task; apply existing consent or present the required decision. |
+| New remote version with contents identical to local | Update the verified baseline; no duplicate upload or sync prompt. |
+| Remote-only change | Read the latest content; refresh the unchanged local copy only when authorized. Never upload the stale copy over it. |
+| Local and remote contents both changed | Inspect differences and preserve both; request a resolution even in auto mode. |
+| Write rejected by its version precondition | Fetch the latest version and inspect the difference; no blind retry or overwrite. |
+| No hook or filesystem access | Use task-time tool observations; report unverified local state rather than claiming continuous monitoring. |

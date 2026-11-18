@@ -1,15 +1,17 @@
 ---
 name: sync
-description: Handle observed local file changes with sync choices, scoped preferences, and explicitly authorized automatic sync to Firmory.
+description: Proactively handle observed file changes and remote version mismatches, resolve sync status, and apply scoped sync choices or authorized automatic sync to Firmory.
 ---
 
 # Sync changes to Firmory
 
 ## Detect changes and respect the current task
 
-Apply this workflow whenever a Firmory-connected task discovers a new local deliverable change. Agent edits, external-editor edits, and differences found by reading or comparing a file use the same rules. Group changes at task completion rather than interrupting every edit.
+Apply this workflow whenever a Firmory-connected task discovers a local deliverable change or a mismatch between its recorded base and the current remote version. Agent edits, external-editor edits, and differences found through reads, comparisons, or tool responses use the same rules. Start the checks without waiting for the user to request sync. Group decisions at task completion rather than interrupting every edit.
 
-Skip unchanged reads or downloads, failed/no-op edits, temporary/build/dependency files, preference files, and versions already accepted by Firmory. Inspect only files relevant to the task. Hooks do not watch arbitrary shell writes or external editors; a later inspection can still discover a change.
+Inspect only linked files relevant to the task: compare local content with its recorded baseline and fetch the latest remote version before editing an existing copy and before sync or completion. Reuse a current read within the task, but refresh before a write and use a version precondition. If filesystem access or tools are unavailable, report what could not be checked. These checks run during tasks, without hooks or background monitoring.
+
+Skip temporary/build/dependency files, preference files, failed/no-op edits, and reads or downloads with no observed content change or version mismatch. A locally unchanged file does not rule out a remote change. An accepted write covers only its verified contents, not later edits.
 
 When providing a local copy, retain its confirmed path, Firmory node ID, exact remote version, and baseline content or digest. When the user asks to inspect manual edits, read the file and compare it with that baseline. If no baseline is known, compare with the identifiable downloaded version or report that sync status is unverified. Do not invent a diff or overwrite remote content automatically.
 
@@ -20,6 +22,20 @@ The latest user instruction takes precedence over saved preferences:
 - **Only when I ask:** suppress unsolicited reminders and sync only on a direct request.
 
 A request for a local path is not a permanent manual preference. Keep the last inspected or prompted snapshot separate from the last accepted remote version. Inspecting or dismissing a reminder never marks a file as synced.
+
+## Resolve the observed state
+
+Compare the local contents, recorded base, and latest remote contents/version. A different version number alone does not prove conflicting content.
+
+| Observed state | Action |
+| --- | --- |
+| Local and remote contents match | Record the verified remote version as the baseline. Do not upload a duplicate version or ask to sync identical content. |
+| Only local content changed | Apply the user's scoped mode: sync when authorized, otherwise offer the choices below. Respect local-only and manual instructions. |
+| Only remote content changed | Use the latest remote content for the requested read. Refresh an unchanged linked local copy when the task authorizes updating it; otherwise report the newer version and offer to update the local copy. Never upload a stale local copy over it. |
+| Both changed and contents differ | Preserve both versions, inspect the differences, and ask which resolution to apply. Do not silently overwrite either side, even in automatic mode. |
+| Base, mapping, or comparison unavailable | Recover the known version and file association through existing tools. If still unknown, report unverified status and ask only for the missing decision; do not guess or upload. |
+
+Automatic handling means running these checks and applying an existing authorization, not granting permission to overwrite files. Do not stop at a generic version-mismatch error when the available tools can identify the difference. Surface one concrete next step when a decision is needed.
 
 ## Offer one compact choice
 
@@ -62,7 +78,7 @@ Missing, invalid, unreadable, or unmatched preferences grant no automatic permis
 1. Call `workspace` before writing and verify the authorized user and team. Reuse the agreed destination or resolve it with fresh search/browse results. If it differs from the approved scope, stop and ask. Sync inside the same team does not require reauthorization.
 2. Re-read the selected files. Require an exact file-to-node association and the recorded remote base version, not filename matching alone. After reopening a conversation, restore those associations and versions before resuming automatic sync. Exclude unrelated files, secrets, and local-only changes. If excluded changes share a file with later automatic-mode edits, obtain approval for that file's full pending contents.
 3. Use `write_text` for supported text or `prepare_upload` with its returned transfer instructions. Follow actual tool schemas. Check collisions for a new file. If the host cannot transfer bytes, report the limitation and provide a real upload entry when available. Local deletion is not permission to delete remotely.
-4. Compare the current remote version with the recorded base and use the write precondition. A newer remote version or unknown base requires a conflict decision. Declare only the exact source versions used. Do not create a second file as a retry workaround.
+4. Compare the current remote version with the recorded base and use the write precondition. Resolve mismatches with the state table above; divergent content or an unresolved base blocks automatic writes. If a write reports a version conflict, fetch the latest version, inspect the differences, and offer a resolution without blindly retrying. Declare only the exact source versions used. Do not create a second file as a retry workaround.
 5. Report the verified outcome: **Synced**, **Pending review**, **Not synced**, or **Sync failed**. Include the destination and returned version/link when available. Distinguish accepted and remaining files in partial batches. Queued, pending, or unknown results are not completed syncs.
 
 If new edits arrive while a save is pending, keep them separate from the approved snapshot. Never reuse an idempotency key for different contents. A request to revise and sync together authorizes that revised operation; a request to revise alone does not extend an earlier one-time approval.
