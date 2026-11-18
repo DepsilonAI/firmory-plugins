@@ -6,6 +6,8 @@ User asks to change team → read the current workspace → request_team_authori
 
 The MCP tool does not revoke credentials or change membership, grants, or a selected-team row. It does not return a transport 401 that triggers refresh of the old grant. A retry using a different authorized team returns its workspace without another challenge. Only the host creates the OAuth request bound to the existing connection. Do not invent a callback URL, link identifier, or native host metadata. Direct Claude Code and Codex CLI MCP connections use their own OAuth controls.
 
+Client policy is a prerequisite: in the verified Codex runtime 0.166.0-alpha.5.1, `AskForApproval::Never` returns before creating the native auth elicitation, even when `AuthElicitation` is enabled. The desktop Full access preset selects this policy. If runtime evidence confirms it, have the user choose Default permissions; do not modify security controls automatically or diagnose this from UI absence alone. The upstream Calendar auth test uses OnRequest and preserves the existing link ID. See [the runtime guard](https://github.com/openai/codex/blob/rust-v0.166.0-alpha.5.1/codex-rs/core/src/mcp_tool_call.rs#L822).
+
 Client verification is still required. An auth-required response does not prove that the host displayed its reauthorization action. If no action appears, report that authorization has not started, keep the task pending, and do not loop. Check that the published tool has no stale UI template binding. Only a successful workspace response for the intended team completes acceptance.
 
 ## Local edits
