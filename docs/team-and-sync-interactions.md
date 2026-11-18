@@ -2,25 +2,29 @@
 
 ## Change team
 
-User asks to change team → read current workspace → request_team_authorization(currentTeamId) → host OAuth UI → choose Change on Firmory consent and authorize the target team → verify workspace → resume the original task. If authorization is cancelled or the team is wrong, report that outcome without repeating the login flow. If the host does not surface the auth challenge, use its existing connection settings. Project changes never use this flow.
+User asks to change team → read the current workspace → request_team_authorization(currentTeamId) → the host's native reauthorization action → user selects the intended team using the same account and approves consent → verify workspace on the original connection → resume the original task. The MCP tool returns the documented tool-level OAuth challenge, without UI metadata, a settings URL, or a duplicate-account flow. The deprecated optional authorize argument remains accepted and is not another user step. Project changes never use this flow.
 
-The MCP tool changes no membership, grant, or selected-team row. A retry with a newly authorized team returns its workspace, preventing another challenge after success. Actual OAuth UI behavior must be tested in each host; a valid protocol response alone is not proof that a browser opened.
+The MCP tool does not revoke credentials or change membership, grants, or a selected-team row. It does not return a transport 401 that triggers refresh of the old grant. A retry using a different authorized team returns its workspace without another challenge. Only the host creates the OAuth request bound to the existing connection. Do not invent a callback URL, link identifier, or native host metadata. Direct Claude Code and Codex CLI MCP connections use their own OAuth controls.
+
+Client policy is a prerequisite: in the verified Codex runtime 0.166.0-alpha.5.1, `AskForApproval::Never` returns before creating the native auth elicitation, even when `AuthElicitation` is enabled. The desktop Full access preset selects this policy. If runtime evidence confirms it, have the user choose Default permissions; do not modify security controls automatically or diagnose this from UI absence alone. The upstream Calendar auth test uses OnRequest and preserves the existing link ID. See [the runtime guard](https://github.com/openai/codex/blob/rust-v0.166.0-alpha.5.1/codex-rs/core/src/mcp_tool_call.rs#L822).
+
+Client verification is still required. An auth-required response does not prove that the host displayed its reauthorization action. If no action appears, report that authorization has not started, keep the task pending, and do not loop. Check that the published tool has no stale UI template binding. Only a successful workspace response for the intended team completes acceptance.
 
 ## Local edits
 
-The sync skill owns the interaction. Hooks only supply context; they do not upload or authorize anything. Native host choices are preferred, with plain-text fallback. Links navigate to actual files; they never stand in for sync actions.
+The sync skill owns the interaction and works without hooks. During tasks, the agent checks relevant linked files against their recorded baseline and current remote version before editing and before sync or completion. Hooks in local distributions only supply additional context; they do not upload or authorize anything. Native host choices are preferred, with plain-text fallback. Links navigate to actual files; they never stand in for sync actions.
 
 User: "Add 111 to test.md, edit locally first."
 
 Expected: "test.md updated locally: added 111. Not synced." Include a local file link when supported. No sync question and no upload, even with automatic mode previously enabled. Local-only content stays excluded from later automatic uploads until the user explicitly includes it.
 
-For a regular local-edit task, show filenames, a short summary, and the resolved destination (team / project / path) in one native choice. Do not duplicate it in the completion text.
+Whenever a relevant new local file change is discovered, including a manual edit found during inspection, show filenames, a short summary, and the resolved destination (team / project / path) in one native choice. Do not duplicate it in the completion text.
 
 | Action | Result |
 | --- | --- |
 | Sync now | Save this batch to the agreed destination. Resolve unknown destinations before writing. |
-| Remind me next time | No upload now. Remind once at the next relevant local-edit task completion in this conversation/project, not on a read-only question. No timed notification. |
-| Sync settings | Choose Ask after changes, Automatically sync linked files, or Only when I ask. |
+| Enable automatic sync | Show the verified team/project/local workspace scope before selection; enable future linked-file sync on explicit selection. Current changes stay local unless explicitly included. |
+| Not this time, remind me next time | No upload now. Remind once on the next task that edits or explicitly inspects these pending files, even if unchanged. Do not remind on unrelated questions. No timed notification. |
 
 No answer, dismissal, or a preselected option authorizes nothing. Do not fabricate buttons or action links if the host lacks native choice UI.
 
@@ -43,10 +47,17 @@ These cases require testing an installed candidate in each intended host. Hook/a
 | Scenario | Required outcome |
 | --- | --- |
 | Local-first edit in ask or auto mode | Local result only; no upload or immediate sync question. |
+| Give a local path, user edits externally, then asks to inspect | Compare against the downloaded baseline; in ask mode, summarize the observed change and offer a sync choice in the same response. No background watcher is needed. |
+| Read an unchanged local file or repeat inspection of the same pending snapshot | No new reminder unless the user chose to defer it to this next relevant task; inspection does not mark the file synced. |
+| Inspect a changed file in explicit manual mode | Describe the change without an unsolicited sync prompt. |
+| Inspect a local file with no known baseline | Do not invent changes or assume it is synced; resolve the base before any automatic write. |
+| One-time sync approved, then user requests further edits | Approval does not expand to future contents; use a new consent decision unless an explicit auto preference covers them. |
 | Three local edits in one task | One grouped decision with filenames and destination. |
 | Choice dismissed or unanswered | No upload or preference change. |
 | Sync now with known destination | No redundant confirmation beyond required host approvals. |
-| Remind next time, then a read-only question | No prompt on the read; one on the next relevant local-edit task. |
+| Remind next time, then an unrelated question | No reminder on unrelated work. |
+| Remind next time, then inspect the pending file | One reminder even if unchanged; include still-pending changes, without uploading. |
+| New changes discovered by edit, read, or comparison tools | Same direct three choices; apply explicit local-only/manual instructions or authorized automatic mode. |
 | Manual mode, edit again, then request sync | No unsolicited prompt; direct sync still works. |
 | Enable automatic mode | Show scope; current batch stays local; future linked-file edits may save. |
 | Automatic mode with new file, unknown base, or local-only contents | Ask before writing; no guessed mapping or silent overwrite. |
@@ -56,3 +67,9 @@ These cases require testing an installed candidate in each intended host. Hook/a
 | Web without persistent preferences | State conversation-only scope. |
 | Conflict, cancellation, partial failure, unknown outcome | Preserve local edits; accurate status; no retry loop or duplicate save. |
 | Successful automatic save | Brief accepted result/version, no new sync question. |
+| Observed local change or remote version mismatch without a sync request | Run the sync checks in the same task; apply existing consent or present the required decision. |
+| New remote version with contents identical to local | Update the verified baseline; no duplicate upload or sync prompt. |
+| Remote-only change | Read the latest content; refresh the unchanged local copy only when authorized. Never upload the stale copy over it. |
+| Local and remote contents both changed | Inspect differences and preserve both; request a resolution even in auto mode. |
+| Write rejected by its version precondition | Fetch the latest version and inspect the difference; no blind retry or overwrite. |
+| No hook or filesystem access | Use task-time tool observations; report unverified local state rather than claiming continuous monitoring. |
