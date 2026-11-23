@@ -17,6 +17,10 @@ Run the user's task directly. If the connection's team is not yet verified, call
 
 Do not silently change teams or call obsolete `list_teams`, `get_current_team`, or `switch_team` tools from stale metadata. Query current projects and files again when asked; do not rely on a previous listing.
 
+## Explore a file graph
+
+When asked to show a file graph or focus on file A, resolve the visible file and call `open_file_graph` once. Keep its `viewId`, team and visible file IDs in this chat. While that exploration is active, a follow-up naming file B means focus the existing graph: reuse its node ID from the graph, or supply its exact filename and the selected project ID to the focus tool for a file outside the current neighborhood. If it returns multiple candidates, ask which path the user means. Call `focus_graph_file` with the same view ID. This updates the mounted graph without another graph window. Do not also call `file_relations` or reopen the graph. Ask which file when ambiguous. When the session expires or the team changes, start a fresh graph in the verified team. If the host only supports text, use the ordinary relationship read instead. Do not claim the user saw movement based only on an acknowledged focus request.
+
 ## Starter questions
 
 ### Show me the projects and files available in my workspace

@@ -64,8 +64,8 @@ class DistributionTests(unittest.TestCase):
                 self.assertNotIn('skills/setup/SKILL.md', names)
                 self.assertIn('skills/firmory/references/connection.md', names)
                 self.assertIn('skills/sync/SKILL.md', names)
-                self.assertIn('hooks/hooks.json', names)
-                self.assertIn('hooks/sync_reminder.py', names)
+                self.assertNotIn('hooks/hooks.json', names)
+                self.assertNotIn('hooks/sync_reminder.py', names)
                 for name in names:
                     if name.endswith(('.md', '.json')):
                         self.assertIsNone(re.search(r'[\u3400-\u4dbf\u4e00-\u9fff]', archive.read(name).decode()), name)
