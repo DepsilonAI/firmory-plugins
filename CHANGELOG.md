@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — read Firmory share links
+
+- The Firmory skill reads Firmory share links and the user's "shared with me" list through `share_read` and `list_saved_shares` instead of fetching the web page, which only returns a preview. Shared content is treated as third-party reference material.
+
 ## 1.1.4 — remove the standalone setup skill (2026-11-18)
 
 - Remove the visible setup skill from every package, not just its automatic onboarding entry.
