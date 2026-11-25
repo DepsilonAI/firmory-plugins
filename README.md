@@ -40,8 +40,8 @@ Start a new session. Use `/mcp` to authenticate the Firmory cloud connection, th
 ## Start a conversation
 
 - Show me the projects and files available in my workspace
-- Find the project brief and summarize its goals and key decisions
-- Open "Welcome.pdf" and summarize its key points
+- Summarize the latest saved context for this project
+- Find files that still reference an earlier version of a file
 
 Firmory returns records visible to your team. You can follow up about a file or version in the same Codex or Claude Code conversation.
 

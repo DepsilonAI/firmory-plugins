@@ -3,7 +3,7 @@
 [Illustrated installation guide](https://firmory.ai/download#codex) · [Releases](https://github.com/DepsilonAI/firmory-plugins/releases)
 
 1. Install Codex with plugin support and sign in to your account.
-2. Open **Customize → Plugins** in Codex. Drag `firmory-1.1.4-codex.zip` into that page and follow the installation prompts. Keep the ZIP compressed; no extraction is needed.
+2. Open **Customize → Plugins** in Codex. Drag the downloaded Codex ZIP into that page and follow the installation prompts. Keep the ZIP compressed; no extraction is needed.
 3. Connect Firmory in your client's MCP settings. If needed, run this in the terminal.
 
 ```sh
@@ -14,8 +14,8 @@ codex -c 'mcp_servers.firmory_cloud.url="https://firmory.ai/mcp"' mcp login firm
 5. Ask a first question.
 
 - Show me the projects and files available in my workspace
-- Find the project brief and summarize its goals and key decisions
-- Open "Welcome.pdf" and summarize its key points
+- Summarize the latest saved context for this project
+- Find files that still reference an earlier version of a file
 
 ## Install the production plugin from GitHub instead
 
@@ -30,4 +30,4 @@ This ZIP connects to https://firmory.ai/mcp using browser sign-in. It can read t
 
 ## Sync reminders
 
-Local installers include a file-edit hook. Enable and trust the hook when your client asks; Python 3 must be available. When new file changes are discovered, including manual edits found during inspection, Firmory offers Sync now, Enable automatic sync, or Not this time, remind me next time using available host choices at task completion. Deferring reminds once when you next edit or inspect those pending files; ordinary unchanged reads do not repeatedly prompt. "Edit locally first" skips the sync question and upload. Preferences support asking after changes, explicitly authorized automatic sync of linked files, or manual sync only, scoped to the current user/team/project/local workspace. Local clients can remember the mode when requested; web clients without persistent preferences keep it in the current conversation. Automatic mode handles future observed edits, not background syncing, and never silently overwrites conflicts. Hooks cannot watch arbitrary shell commands or external editors; web plugins cannot watch local files.
+Firmory checks relevant linked files while you work. When it discovers an edit, choose **Sync now**, **Enable automatic sync**, or **Remind next time**. If the remote version also changed, review the differences before saving.

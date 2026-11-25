@@ -2,17 +2,17 @@
 
 Build on shared digital assets
 
-Use Firmory in Codex or Claude Code to find the projects you can access, check which version of a brief informed a report, or follow a specification to documents that cite it. Ask your question directly. If sign-in is needed, authorize your team in the browser and continue the task. A separate setup question is not required. Ask to change teams when you need a different team's authorization; project changes within the authorized team do not require sign-in.
+Use Firmory in Codex or Claude Code to browse files, compare versions, trace references, and save updates to an authorized team workspace. Select a project in conversation. Changing teams requires browser authorization.
 
-The plugin connects to its configured `firmory_cloud` service over HTTPS. The host sends tool arguments such as search terms, file identifiers, and versions to Firmory. The service returns records available to the signed-in team. The lookup workflow uses read operations. Follow-up questions stay in the current client conversation.
+The plugin sends tool arguments to its configured Firmory service over HTTPS. Results are limited to the files the connected account can access.
 
 [Product](https://firmory.ai/) · [Support](https://firmory.ai/#faq) · [Privacy](https://firmory.ai/privacy) · [Terms](https://firmory.ai/terms)
 
 ## Start a conversation
 
 - Show me the projects and files available in my workspace
-- Find the project brief and summarize its goals and key decisions
-- Open "Welcome.pdf" and summarize its key points
+- Summarize the latest saved context for this project
+- Find files that still reference an earlier version of a file
 
 [Illustrated installation guide](https://firmory.ai/download).
 

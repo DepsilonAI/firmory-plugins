@@ -109,7 +109,7 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
             if not demo_recording_url.startswith('https://'):
                 raise ValueError('The review recording must use a public HTTPS URL')
             openai['review']['demo_recording_url'] = demo_recording_url
-        openai['publication']['release_notes'] = f'Firmory {release_version} connects to your authorized team to compare file versions, trace references, summarize project briefings, and save or revise a checklist with its source versions.'
+        openai['publication']['release_notes'] = f'Firmory {release_version} connects to your authorized team to compare file versions, trace references, read project context, and save file changes with their source versions.'
         upload['plugin.json'] = json_bytes(portable)
     if env == 'production':
         all_files = {**marketplace, **upload}

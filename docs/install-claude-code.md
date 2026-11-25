@@ -21,8 +21,8 @@ claude mcp login plugin:firmory:firmory_cloud
 6. Ask a first question.
 
 - Show me the projects and files available in my workspace
-- Find the project brief and summarize its goals and key decisions
-- Open "Welcome.pdf" and summarize its key points
+- Summarize the latest saved context for this project
+- Find files that still reference an earlier version of a file
 
 ## Install the production plugin from GitHub instead
 
