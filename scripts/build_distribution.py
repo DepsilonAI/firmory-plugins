@@ -44,6 +44,10 @@ def package_file(path, env):
             b'Firmory: after actual local deliverable changes, follow the Firmory sync skill',
             b'Firmory Preview: after local edits, follow the firmory-preview-sync skill',
         )
+    if path == PLUGIN / 'skills/firmory/scripts/codex_oauth.py':
+        return data.replace(b'firmory_cloud', PREVIEW_SERVER.encode()).replace(
+            ENDPOINTS['production'].encode(), ENDPOINTS['preview'].encode(),
+        )
     if path.suffix != '.md':
         return data
     text = data.decode('utf-8')
@@ -65,19 +69,20 @@ def package_file(path, env):
             'or uploading files, saving Skills, changing sharing, or performing any other Firmory '
             'write, call `workspace({})` on that connection and require the returned `resourceUrl` '
             f'to equal `{ENDPOINTS["preview"]}` exactly. Use the same verified tool namespace for '
-            'all subsequent operations and use only IDs obtained from that workspace. If the '
-            'connection or matching URL is missing, finish any local work and report that preview '
-            'could not be verified. Make no Firmory writes. Never substitute the production '
+            'all subsequent operations and use only IDs obtained from that workspace. For a '
+            'missing or unauthorized preview connection, follow the installed Firmory skill\'s '
+            'connection guide before any Firmory writes. If preview remains unverified, finish '
+            'any local work and report that it could not be verified. Make no Firmory writes. '
+            'Never substitute the production '
             'plugin, globally configured connections such as `firmory_remote`, or another tool namespace.'
         )
         text = '\n\n'.join((frontmatter, title, preview_connection, body))
     if path.name in ('install-codex.md', 'install-claude-code.md'):
         text = text.replace('# Firmory for ', f'# {PREVIEW_LABEL} for ', 1)
+        text = text.replace('select **Firmory**', f'select **{PREVIEW_LABEL}**')
         if path.name == 'install-claude-code.md':
             text = text.replace('firmory-claude-code folder', f'{PREVIEW_NAME}-claude-code folder')
             text = text.replace('firmory@firmory-plugins', f'{PREVIEW_NAME}@{PREVIEW_NAME}-plugins', 1)
-        else:
-            text = text.replace('`firmory-', f'`{PREVIEW_NAME}-', 1)
         start = text.index('## Install the production plugin from GitHub instead')
         end = text.index('This ZIP connects to ', start)
         text = text[:start] + text[end:]
@@ -152,6 +157,7 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
     common = {(preview_skill_path(name) if env == 'preview' else name): package_file(PLUGIN / name, env) for name in (
         'assets/icon.svg', 'assets/logo-blue.png', 'assets/composer-blue.png', 'README.md',
         'skills/firmory/SKILL.md', 'skills/firmory/references/connection.md',
+        'skills/firmory/scripts/codex_oauth.py',
         'skills/firmory/references/production-library.md', 'skills/sync/SKILL.md',
     )}
     if (PLUGIN / 'LICENSE').is_file():
@@ -176,7 +182,7 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
     # MCP loader rejects server extensions, so install ZIPs use OAuth discovery.
     configs['mcp.json']['mcpServers'][server_name]['extensions'] = {
         'com.openai': {'auth': {'type': 'oauth', 'client': {'mode': 'cimd'},
-                                'baseScopes': ['user:org:read']}}
+                                'baseScopes': ['openid']}}
     }
     upload = {**common, 'mcp.json': json_bytes(configs['mcp.json'])}
     if env == 'production' and not public_only:

@@ -56,6 +56,14 @@ class DistributionTests(unittest.TestCase):
                     connection = next(name for name in archive.namelist() if name.endswith('skills/firmory-preview/references/connection.md'))
                     self.assertIn(b'https://preview.firmory.ai/mcp', archive.read(connection))
                     self.assertIn(b'`verify_connection`', archive.read(connection))
+                    connection_guide = archive.read(connection)
+                    self.assertIn(b'`scripts/codex_oauth.py`', connection_guide)
+                    self.assertIn(b'`switch_team({teamId})`', connection_guide)
+                    self.assertIn(b'Switching Teams on an account grant does not start OAuth', connection_guide)
+                    launcher = next(name for name in archive.namelist() if name.endswith('skills/firmory-preview/scripts/codex_oauth.py'))
+                    self.assertIn(b'SERVER = "firmory_preview"', archive.read(launcher))
+                    self.assertIn(b'RESOURCE = "https://preview.firmory.ai/mcp"', archive.read(launcher))
+                    self.assertIn(b'"--scopes", "openid"', archive.read(launcher))
                     reference_path = 'skills/firmory-preview/references/production-library.md'
                     reference = next(name for name in archive.namelist() if name.endswith(reference_path))
                     skill = reference.removesuffix('references/production-library.md') + 'SKILL.md'
@@ -74,7 +82,7 @@ class DistributionTests(unittest.TestCase):
                     self.assertIn(b'#turn-a-task-into-a-skill', activation)
                     self.assertIn(b'#use-a-shared-skill-for-new-work', activation)
                     if path.name.endswith('-codex.zip'):
-                        self.assertEqual(path.name, 'firmory-preview-1.1.4-codex.zip')
+                        self.assertEqual(path.name, 'firmory-preview-1.1.5-codex.zip')
                         readme = archive.read('README.md')
                         self.assertIn(b'https://preview.firmory.ai/mcp', readme)
                         self.assertIn(b'choose **Firmory Preview**', readme)
@@ -111,6 +119,7 @@ class DistributionTests(unittest.TestCase):
                 self.assertNotIn('skills/setup/SKILL.md', names)
                 self.assertIn('skills/firmory/references/connection.md', names)
                 self.assertIn('skills/firmory/references/production-library.md', names)
+                self.assertIn('skills/firmory/scripts/codex_oauth.py', names)
                 self.assertIn('skills/sync/SKILL.md', names)
                 self.assertIn('hooks/hooks.json', names)
                 self.assertIn('hooks/sync_reminder.py', names)
@@ -143,7 +152,7 @@ class DistributionTests(unittest.TestCase):
                 self.assertEqual(public.read('mcp.json'), marketplace.read('plugins/firmory/mcp.json'))
                 review_server = json.loads(review.read('mcp.json'))['mcpServers']['firmory_cloud']
                 self.assertEqual(review_server['extensions']['com.openai']['auth'], {
-                    'type': 'oauth', 'client': {'mode': 'cimd'}, 'baseScopes': ['user:org:read'],
+                    'type': 'oauth', 'client': {'mode': 'cimd'}, 'baseScopes': ['openid'],
                 })
                 self.assertEqual(review_server['url'], 'https://firmory.ai/mcp')
                 self.assertNotIn('review', json.loads(public.read('plugin.json'))['extensions']['com.openai'])
