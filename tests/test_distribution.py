@@ -35,6 +35,11 @@ class DistributionTests(unittest.TestCase):
                     connection = next(name for name in archive.namelist() if name.endswith('skills/firmory/references/connection.md'))
                     self.assertIn(b'https://preview.firmory.ai/mcp', archive.read(connection))
                     self.assertIn(b'`verify_connection`', archive.read(connection))
+                    reference_path = 'skills/firmory/references/production-library.md'
+                    reference = next(name for name in archive.namelist() if name.endswith(reference_path))
+                    skill = reference.removesuffix('references/production-library.md') + 'SKILL.md'
+                    self.assertIn(b'(references/production-library.md)', archive.read(skill))
+                    self.assertIn(b'`library_submit`', archive.read(reference))
                     if path.name.endswith('-codex.zip'):
                         self.assertIn(b'https://preview.firmory.ai/mcp', archive.read('README.md'))
 
@@ -63,6 +68,7 @@ class DistributionTests(unittest.TestCase):
                 self.assertIn('skills/firmory/SKILL.md', names)
                 self.assertNotIn('skills/setup/SKILL.md', names)
                 self.assertIn('skills/firmory/references/connection.md', names)
+                self.assertIn('skills/firmory/references/production-library.md', names)
                 self.assertIn('skills/sync/SKILL.md', names)
                 self.assertIn('hooks/hooks.json', names)
                 self.assertIn('hooks/sync_reminder.py', names)

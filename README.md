@@ -45,6 +45,8 @@ Start a new session. Use `/mcp` to authenticate the Firmory cloud connection, th
 
 Firmory returns records visible to your team. You can follow up about a file or version in the same Codex or Claude Code conversation.
 
+See how to manage Skills and their supporting files with the [MCP production library guide](plugins/firmory/skills/firmory/references/production-library.md).
+
 ## Data and access
 
 The host sends the arguments needed for each tool call to Firmory, such as a search term or file and version identifiers. Firmory controls which tools and records the account can access. The lookup workflow does not submit changes to answer questions. Never paste credentials into a chat or issue. See the [plugin description](plugins/firmory/README.md), [privacy policy](https://firmory.ai/privacy), and [terms](https://firmory.ai/terms).

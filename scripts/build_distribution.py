@@ -64,7 +64,8 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
 
     common = {name: package_file(PLUGIN / name, env) for name in (
         'assets/icon.svg', 'assets/logo-blue.png', 'assets/composer-blue.png', 'README.md',
-        'skills/firmory/SKILL.md', 'skills/firmory/references/connection.md', 'skills/sync/SKILL.md',
+        'skills/firmory/SKILL.md', 'skills/firmory/references/connection.md',
+        'skills/firmory/references/production-library.md', 'skills/sync/SKILL.md',
     )}
     if (PLUGIN / 'LICENSE').is_file():
         common['LICENSE'] = (PLUGIN / 'LICENSE').read_bytes()

@@ -39,6 +39,8 @@ claude plugin install firmory@firmory-plugins
 
 Firmory 會傳回團隊有權查看的紀錄。若想追問某份文件或某個版本，可在同一個 Codex 或 Claude Code 對話繼續。
 
+如何用 MCP 上傳、修改和下載 Skill，以及引用生產資料庫的檔案，請見 [Skills 與生產資料庫指南](plugins/firmory/skills/firmory/references/production-library.md)。
+
 ## 資料如何使用
 
 客戶端會將本次工具呼叫需要的查詢文字、檔案或版本識別碼等參數傳送至 Firmory。可用工具與資料由服務端依帳號權限決定；查詢流程不會為了回答問題而修改檔案。不要把帳號憑證貼到聊天或 GitHub issue。詳見[隱私政策](https://firmory.ai/privacy)與[服務條款](https://firmory.ai/terms)。

@@ -16,6 +16,10 @@ The plugin connects to its configured `firmory_cloud` service over HTTPS. The ho
 
 [Illustrated installation guide](https://firmory.ai/download).
 
+## Skills and production files
+
+Use the Firmory MCP tools to upload, revise, or download Skills and the documents and images they use. The guide covers stable file and directory links, exact dependency versions, and public project collections. [Skills and the production library](skills/firmory/references/production-library.md)
+
 ## License
 
 The plugin code and documentation are licensed under the [MIT License](LICENSE). This license does not grant trademark rights in the Firmory name or logos, or access to Firmory’s hosted services.
