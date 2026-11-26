@@ -38,8 +38,13 @@ class DistributionTests(unittest.TestCase):
                     reference_path = 'skills/firmory/references/production-library.md'
                     reference = next(name for name in archive.namelist() if name.endswith(reference_path))
                     skill = reference.removesuffix('references/production-library.md') + 'SKILL.md'
-                    self.assertIn(b'(references/production-library.md)', archive.read(skill))
-                    self.assertIn(b'`library_submit`', archive.read(reference))
+                    activation = archive.read(skill)
+                    self.assertIn(b'(references/production-library.md)', activation)
+                    guide = archive.read(reference)
+                    for tool in (b'`library_submit`', b'`get_resource_link`', b'`read_shared_resource`'):
+                        self.assertIn(tool, guide)
+                    self.assertIn(b'#turn-a-task-into-a-skill', activation)
+                    self.assertIn(b'#use-a-shared-skill-for-new-work', activation)
                     if path.name.endswith('-codex.zip'):
                         self.assertIn(b'https://preview.firmory.ai/mcp', archive.read('README.md'))
 

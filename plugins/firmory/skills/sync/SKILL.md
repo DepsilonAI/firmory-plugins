@@ -9,6 +9,8 @@ description: Manage local changes with contextual sync choices, scoped reminder 
 
 Apply this workflow only to actual local deliverable changes during a Firmory-connected task. Group changes at task completion; do not interrupt each edit. Skip reads, failed/no-op edits, temporary/build/dependency files, preference files, and versions already accepted by Firmory. Do not search unrelated folders for changes. Hooks cannot observe external editors or arbitrary shell writes; apply the same workflow to shell changes only when the agent actually observed them.
 
+For an explicit SOP request, follow the Firmory Skill's [SOP workflow](../firmory/references/production-library.md#turn-a-task-into-a-skill) for supporting files it covers. Use the sync choices below for other local deliverables.
+
 The user's latest instruction takes precedence over saved preferences. "Local only", "edit locally first", "do not upload", or "later" means finish the local work, report its unsynced status, and do not immediately ask about syncing or upload it. Do not defer an explicitly local-only edit into an automatic upload on a later turn. It remains excluded until the user explicitly includes it. "Sync now" authorizes the identified changes once, not future uploads. Never interpret a displayed, preselected, or unanswered option as consent.
 
 ## One compact decision

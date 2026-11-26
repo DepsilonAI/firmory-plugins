@@ -18,7 +18,7 @@ The plugin connects to its configured `firmory_cloud` service over HTTPS. The ho
 
 ## Skills and production files
 
-Use the Firmory MCP tools to upload, revise, or download Skills and the documents and images they use. The guide covers stable file and directory links, exact dependency versions, and public project collections. [Skills and the production library](skills/firmory/references/production-library.md)
+In Codex, mention `@Firmory` and ask it to turn the way you do a task into an SOP. Continue with the actual work. Firmory saves the method and its supporting files when the tools and project permissions allow it, then returns a single Skill link when sharing is enabled. To reuse it, give Firmory that link and describe the next task. [Skills and the production library](skills/firmory/references/production-library.md)
 
 ## License
 
