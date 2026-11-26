@@ -41,6 +41,8 @@ Upload only the Codex ZIP, Claude Code ZIP, and their checksums to the public Gi
 python3 scripts/build_distribution.py --env preview
 ```
 
+Install the generated `firmory-preview-<version>-codex.zip` in Codex and select **Firmory Preview** in a new chat. The preview package uses the separate `firmory-preview` plugin ID, `firmory-preview-plugins` marketplace, and `firmory_preview` MCP server. Its workflows require `workspace.resourceUrl` to match the preview endpoint before writing. A missing or mismatched preview connection leaves the work local.
+
 At submission time, choose a new stable version and run the production build. For example, to package version 1.0.0, run the following command.
 
 ```sh
