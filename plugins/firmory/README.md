@@ -18,7 +18,7 @@ The plugin connects to its configured `firmory_cloud` service over HTTPS. The ho
 
 ## Skills and production files
 
-In Codex, mention `@Firmory` and ask it to turn the way you do a task into an SOP. Continue with the actual work. Firmory saves the method and its supporting files when the tools and project permissions allow it, then returns a single Skill link when sharing is enabled. To reuse it, give Firmory that link and describe the next task. [Skills and the production library](skills/firmory/references/production-library.md)
+In Codex, mention `@Firmory` and ask it to turn the way you do a task into an SOP. Continue with the actual work. Firmory saves the method and its supporting files when the connected tools and permissions allow it. Ask to share the Skill if you want a public link. To reuse a shared Skill, give Firmory the link and describe the next task. [Skills and the production library](skills/firmory/references/production-library.md)
 
 ## License
 

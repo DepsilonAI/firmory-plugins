@@ -41,8 +41,13 @@ class DistributionTests(unittest.TestCase):
                     activation = archive.read(skill)
                     self.assertIn(b'(references/production-library.md)', activation)
                     guide = archive.read(reference)
-                    for tool in (b'`library_submit`', b'`get_resource_link`', b'`read_shared_resource`'):
+                    for tool in (
+                        b'`library_submit`', b'`get_resource_link`',
+                        b'`set_skill_sharing({itemId, visibility: "public"})`', b'`read_shared_resource`',
+                    ):
                         self.assertIn(tool, guide)
+                    for kind in (b'skills', b'projects', b'files'):
+                        self.assertIn(b'/shared/' + kind + b'/{resourceId}/{key}', guide)
                     self.assertIn(b'#turn-a-task-into-a-skill', activation)
                     self.assertIn(b'#use-a-shared-skill-for-new-work', activation)
                     if path.name.endswith('-codex.zip'):
