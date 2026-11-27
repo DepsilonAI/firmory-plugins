@@ -52,6 +52,7 @@ def package_file(path, env):
         return data
     text = data.decode('utf-8')
     text = text.replace(ENDPOINTS['production'], ENDPOINTS['preview'])
+    text = text.replace('https://app.firmory.ai', 'https://app-preview.firmory.ai')
     text = text.replace('firmory_cloud', PREVIEW_SERVER)
     text = text.replace(f'plugin:firmory:{PREVIEW_SERVER}', f'plugin:{PREVIEW_NAME}:{PREVIEW_SERVER}')
     text = preview_skill_path(text)
@@ -62,6 +63,14 @@ def package_file(path, env):
         name = path.parent.name
         text = text.replace(f'name: {name}\n', f'name: {PREVIEW_SKILLS[name]}\n', 1)
         frontmatter, title, body = text.split('\n\n', 2)
+        if name == 'firmory':
+            body = body.replace(
+                '## Capture a task in Firmory\n\n',
+                '## Capture a task in Firmory\n\n'
+                'Examples: “帮我做一个个人简历网站，然后沉淀到 Firmory” and '
+                '“沉淀到 Firmory Preview” request this workflow.\n\n',
+                1,
+            )
         preview_connection = (
             '## Verify the preview connection\n\n'
             f'Use only this installed {PREVIEW_LABEL} plugin\'s `{PREVIEW_SERVER}` MCP connection for '

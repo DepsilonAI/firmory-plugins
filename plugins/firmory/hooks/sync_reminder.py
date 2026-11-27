@@ -15,10 +15,12 @@ def reminder(event):
         return None
     return {"hookSpecificOutput": {"hookEventName": "PostToolUse", "additionalContext": (
         "Firmory: after actual local deliverable changes, follow the Firmory sync skill at task "
-        "completion. Respect the user's latest local-only instruction and scoped sync preference. "
+        "completion. For work the user asked to capture in Firmory, use the Skill capture "
+        "workflow for its supporting assets and final Skill. Use the sync choices for other "
+        "files. Respect the user's latest local-only instruction and scoped sync preference. "
         "Local-only means no upload or immediate sync question; manual mode means no unsolicited "
         "sync prompt. Otherwise use the skill's grouped human-choice flow or explicitly authorized "
-        "automatic mode. Do not upload automatically without explicit consent for the verified "
+        "automatic mode. Do not upload automatically outside a requested capture without explicit consent for the verified "
         "scope and linked files. Never treat this hook as consent. Do not interrupt each edit, "
         "fabricate buttons/links, or repeat unchanged reminders. Skip failed/no-op edits, "
         "temporary/build/dependency/preference files, and versions already saved through Firmory."

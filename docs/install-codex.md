@@ -23,6 +23,10 @@ codex plugin add firmory@firmory-plugins
 
 This ZIP connects to https://firmory.ai/mcp using browser sign-in. It can read the files your team permits and save changes when you ask. [Privacy](https://firmory.ai/privacy) · [Terms](https://firmory.ai/terms).
 
+## Capture work as a Skill
+
+Ask `@Firmory` to do a task and capture it in Firmory, then work through the task in the same chat. Reusable materials go to the project's production library as they become ready. At the end, Codex saves a Skill with the method and links to its materials. Ask for a link others can reuse to enable public sharing. They can paste that link into a new chat along with their own task.
+
 ## Sync reminders
 
 Local installers include a file-edit hook. Enable and trust the hook when your client asks; Python 3 must be available. At task completion, Firmory offers Sync now, Remind me next time, or Sync settings using available host choices. "Edit locally first" skips the sync question and upload. Settings support asking after changes, explicitly authorized automatic sync of linked files, or manual sync only, scoped to the current user/team/project/local workspace. Local clients can remember the mode when requested; web clients without persistent preferences keep it in the current conversation. Automatic mode handles future observed edits, not background syncing, and never silently overwrites conflicts. Hooks cannot watch arbitrary shell commands or external editors; web plugins cannot watch local files.

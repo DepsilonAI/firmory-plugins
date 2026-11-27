@@ -70,8 +70,11 @@ class DistributionTests(unittest.TestCase):
                     activation = archive.read(skill)
                     self.assertIn(b'(references/production-library.md)', activation)
                     self.assertIn(b'../firmory-preview-sync/SKILL.md', activation)
+                    self.assertIn('沉淀到 Firmory'.encode(), activation)
                     guide = archive.read(reference)
                     self.assertIn(b'Never upload a Skill ZIP as a fallback', guide)
+                    self.assertIn(b'https://app-preview.firmory.ai/#/skills?item=<item.id>', guide)
+                    self.assertNotIn(b'https://app.firmory.ai', guide)
                     for tool in (
                         b'`library_submit`', b'`get_resource_link`',
                         b'`set_skill_sharing({itemId, visibility: "public"})`', b'`read_shared_resource`',
@@ -82,7 +85,8 @@ class DistributionTests(unittest.TestCase):
                     self.assertIn(b'#turn-a-task-into-a-skill', activation)
                     self.assertIn(b'#use-a-shared-skill-for-new-work', activation)
                     if path.name.endswith('-codex.zip'):
-                        self.assertEqual(path.name, 'firmory-preview-1.1.5-codex.zip')
+                        manifest = json.loads(archive.read('plugin.json'))
+                        self.assertEqual(path.name, f"firmory-preview-{manifest['version']}-codex.zip")
                         readme = archive.read('README.md')
                         self.assertIn(b'https://preview.firmory.ai/mcp', readme)
                         self.assertIn(b'choose **Firmory Preview**', readme)
