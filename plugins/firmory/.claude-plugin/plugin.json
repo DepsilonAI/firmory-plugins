@@ -1,7 +1,7 @@
 {
   "name": "firmory",
-  "version": "1.1.6",
-  "description": "Build on shared digital assets",
+  "version": "1.2.0",
+  "description": "Search, download, capture, and share reusable Skills with your team and AI agents",
   "author": {
     "name": "Firmory",
     "url": "https://firmory.ai",
@@ -10,6 +10,8 @@
   "homepage": "https://firmory.ai",
   "keywords": [
     "firmory",
+    "skills",
+    "sop",
     "team-workspace",
     "files",
     "versions",

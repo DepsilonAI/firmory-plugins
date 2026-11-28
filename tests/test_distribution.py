@@ -68,22 +68,26 @@ class DistributionTests(unittest.TestCase):
                     reference = next(name for name in archive.namelist() if name.endswith(reference_path))
                     skill = reference.removesuffix('references/production-library.md') + 'SKILL.md'
                     activation = archive.read(skill)
-                    self.assertIn(b'(references/production-library.md)', activation)
+                    self.assertIn(b'(references/production-library.md#search-inspect-download-and-run-skills)', activation)
                     self.assertIn(b'../firmory-preview-sync/SKILL.md', activation)
                     self.assertIn('沉淀到 Firmory'.encode(), activation)
                     guide = archive.read(reference)
                     self.assertIn(b'Never upload a Skill ZIP as a fallback', guide)
-                    self.assertIn(b'https://app-preview.firmory.ai/#/skills?item=<item.id>', guide)
+                    self.assertIn(b'https://app-preview.firmory.ai/#/skills/<item.id>', guide)
                     self.assertNotIn(b'https://app.firmory.ai', guide)
                     for tool in (
-                        b'`library_submit`', b'`get_resource_link`',
-                        b'`set_skill_sharing({itemId, visibility: "public"})`', b'`read_shared_resource`',
+                        b'`search_skills', b'`download_skill`', b'`public_read',
+                        b'`library_submit', b'`undo_save', b'`set_saving',
+                        b'`prepare_skill_share', b'`skill_share_status',
+                        b'`get_resource_link', b'`set_skill_sharing({ itemId, visibility: "public" })`',
+                        b'`read_shared_resource',
                     ):
                         self.assertIn(tool, guide)
                     for kind in (b'skills', b'projects', b'files'):
                         self.assertIn(b'/shared/' + kind + b'/{resourceId}/{key}', guide)
                     self.assertIn(b'#turn-a-task-into-a-skill', activation)
-                    self.assertIn(b'#use-a-shared-skill-for-new-work', activation)
+                    self.assertIn(b'#share-a-skill-from-chat', activation)
+                    self.assertIn(b'#search-inspect-download-and-run-skills', activation)
                     if path.name.endswith('-codex.zip'):
                         manifest = json.loads(archive.read('plugin.json'))
                         self.assertEqual(path.name, f"firmory-preview-{manifest['version']}-codex.zip")

@@ -65,10 +65,11 @@ def package_file(path, env):
         frontmatter, title, body = text.split('\n\n', 2)
         if name == 'firmory':
             body = body.replace(
-                '## Capture a task in Firmory\n\n',
-                '## Capture a task in Firmory\n\n'
-                'Examples: “帮我做一个个人简历网站，然后沉淀到 Firmory” and '
-                '“沉淀到 Firmory Preview” request this workflow.\n\n',
+                '## 2. Turn how you work into a Skill (with receipts, undo, and pause)\n\n',
+                '## 2. Turn how you work into a Skill (with receipts, undo, and pause)\n\n'
+                'Examples: “帮我搜一个做 carousel 的 skill，看看内容并下载”, '
+                '“帮我做一个个人简历网站，然后沉淀到 Firmory”, and '
+                '“沉淀到 Firmory Preview” / “分享这个 skill” request these workflows.\n\n',
                 1,
             )
         preview_connection = (
@@ -147,11 +148,11 @@ def build(env, release_version, destination, review_cases=None, demo_recording_u
     plugin_path = PLUGIN_PATH
     if env == 'preview':
         portable['name'] = claude['name'] = PREVIEW_NAME
-        portable['description'] = claude['description'] = 'Test workflows in the Firmory preview workspace'
+        portable['description'] = claude['description'] = 'Search, download, capture, and share Skills in the Firmory preview workspace'
         interface = portable['extensions']['com.openai']['interface']
         interface['displayName'] = PREVIEW_LABEL
         interface['shortDescription'] = 'Connect to Firmory preview'
-        interface['longDescription'] = 'Connect to the Firmory preview workspace to test project files and reusable Skills with separate preview authorization.'
+        interface['longDescription'] = 'Connect to the Firmory preview workspace to search, view, and download Skills, capture workflows with interactive receipts and undo, and share Skills with confirmation cards.'
         server_name = PREVIEW_SERVER
         plugin_path = f'plugins/{PREVIEW_NAME}'
 
