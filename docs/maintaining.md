@@ -41,6 +41,8 @@ Upload only the Codex ZIP, Claude Code ZIP, and their checksums to the public Gi
 python3 scripts/build_distribution.py --env preview
 ```
 
+Install the generated `firmory-preview-<version>-codex.zip` in Codex and select **Firmory Preview** in a new chat. The preview package uses the separate `firmory-preview` plugin ID, `firmory-preview-plugins` marketplace, and `firmory_preview` MCP server. Its workflows require `workspace.resourceUrl` to match the preview endpoint before writing. A missing or mismatched preview connection leaves the work local.
+
 At submission time, choose a new stable version and run the production build. For example, to package version 1.0.0, run the following command.
 
 ```sh
@@ -62,4 +64,4 @@ After those checks pass, publish the extracted marketplace tree to a dedicated r
 
 The public Codex ZIP must contain one portable plugin at the archive root (`plugin.json`, `mcp.json`, `assets/`, and `skills/`), without marketplace catalogs or a `plugins/firmory` wrapper. Users drag this ZIP into Customize → Plugins. Claude Code retains its marketplace ZIP layout. Run `python3 -m unittest discover -s tests -v` before replacing release assets.
 
-The private OpenAI review ZIP includes explicit OAuth metadata: CIMD with `user:org:read`. The public Codex ZIP and source/CLI marketplace use standard MCP OAuth discovery because the current Desktop loader rejects per-server `extensions`. Test loading the actual install configuration with the bundled client; portal validation alone does not prove Desktop compatibility. Public packages must not include reviewer materials. Keep the packaged skills, listing, and installation instructions in English.
+The private OpenAI review ZIP declares CIMD with account scope `openid`. The Codex ZIP and source marketplace use MCP OAuth discovery. The installed Skill can start account authorization with the local Codex client when a requested feature needs it. Test the package in Codex with a signed-out connection, then switch between two Teams using the same account grant. Public packages must not include reviewer materials. Keep the packaged skills, listing, and installation instructions in English.

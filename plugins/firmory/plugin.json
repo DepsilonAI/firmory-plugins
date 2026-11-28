@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "firmory",
-  "version": "1.1.4",
-  "description": "Build on shared digital assets",
+  "version": "1.2.0",
+  "description": "Search, download, capture, and share reusable Skills with your team and AI agents",
   "author": {
     "name": "Firmory",
     "url": "https://firmory.ai",
@@ -11,6 +11,8 @@
   "homepage": "https://firmory.ai",
   "keywords": [
     "firmory",
+    "skills",
+    "sop",
     "team-workspace",
     "files",
     "versions",
@@ -20,8 +22,8 @@
     "com.openai": {
       "interface": {
         "displayName": "Firmory",
-        "shortDescription": "Build on shared digital assets",
-        "longDescription": "Share project files, AI-generated work, and project context with your team and Codex in one workspace. Find existing work, review recorded decisions and supporting materials, and build on work shared by teammates or created with AI—with less time spent transferring files and explaining project history.\n\nExplore saved project context and relationships between files to understand how work developed and which materials it relies on. Stay informed through Firmory’s related-update notifications when referenced materials change, and check whether your documents, code, or other deliverables need updating.",
+        "shortDescription": "Search, capture, and share reusable AI Skills",
+        "longDescription": "Search Skills across your workspace and Firmory's public Discover catalog, inspect their steps and files, download complete Skill packages locally, or run them directly in your conversation.\n\nTurn how you work into a reusable Skill as you chat: Firmory saves steps, supporting files, lessons learned, and context with inline receipts, one-click undo, and pause controls. Share any Skill safely with an interactive confirmation card that reviews public parts, keeps memory private unless switched on, hides personal or company names, and prepares ready-to-post links.",
         "developerName": "Firmory",
         "category": "Productivity",
         "capabilities": [
@@ -37,9 +39,9 @@
         "logo": "./assets/logo-blue.png",
         "composerIcon": "./assets/composer-blue.png",
         "defaultPrompt": [
-          "Show me the projects and files available in my workspace",
-          "Find the project brief and summarize its goals and key decisions",
-          "Open \"Welcome.pdf\" and summarize its key points"
+          "Search Firmory for a skill I can use, view its contents, or download it",
+          "Turn how I do this task into a reusable Firmory skill",
+          "Show me the skills, projects, and files available in my workspace"
         ]
       },
       "publication": {}

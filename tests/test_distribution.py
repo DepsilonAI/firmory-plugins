@@ -26,17 +26,78 @@ class DistributionTests(unittest.TestCase):
                         if name.endswith(('mcp.json', '.md')):
                             self.assertNotIn(b'https://firmory.ai/mcp', archive.read(name), name)
                         if name.endswith('mcp.json'):
-                            server = json.loads(archive.read(name))['mcpServers']['firmory_cloud']
-                            self.assertEqual(server['url'], 'https://preview.firmory.ai/mcp')
+                            servers = json.loads(archive.read(name))['mcpServers']
+                            self.assertEqual(set(servers), {'firmory_preview'})
+                            self.assertEqual(servers['firmory_preview']['url'], 'https://preview.firmory.ai/mcp')
+                        if name.endswith('plugin.json'):
+                            manifest = json.loads(archive.read(name))
+                            self.assertEqual(manifest['name'], 'firmory-preview')
+                            if '.claude-plugin/' not in name:
+                                self.assertEqual(manifest['extensions']['com.openai']['interface']['displayName'],
+                                                 'Firmory Preview')
+                        if name.endswith('marketplace.json'):
+                            catalog = json.loads(archive.read(name))
+                            self.assertEqual(catalog['name'], 'firmory-preview-plugins')
+                            entry, = catalog['plugins']
+                            self.assertEqual(entry['name'], 'firmory-preview')
+                            source = entry['source']
+                            source_path = source['path'] if isinstance(source, dict) else source
+                            self.assertEqual(source_path, './plugins/firmory-preview')
+                        if name.endswith('/SKILL.md'):
+                            skill = archive.read(name)
+                            self.assertIn(f'name: {Path(name).parent.name}\n'.encode(), skill)
+                            for requirement in (b'`firmory_preview`', b'`workspace({})`', b'`resourceUrl`',
+                                                b'https://preview.firmory.ai/mcp', b'Make no Firmory writes'):
+                                self.assertIn(requirement, skill, name)
                     skills = {name.split('/skills/', 1)[-1] if '/skills/' in name else name.removeprefix('skills/')
                               for name in archive.namelist() if name.endswith('/SKILL.md')}
-                    self.assertEqual(skills, {'firmory/SKILL.md', 'sync/SKILL.md'})
+                    self.assertEqual(skills, {'firmory-preview/SKILL.md', 'firmory-preview-sync/SKILL.md'})
                     self.assertFalse(any('skills/setup/' in name for name in archive.namelist()))
-                    connection = next(name for name in archive.namelist() if name.endswith('skills/firmory/references/connection.md'))
+                    connection = next(name for name in archive.namelist() if name.endswith('skills/firmory-preview/references/connection.md'))
                     self.assertIn(b'https://preview.firmory.ai/mcp', archive.read(connection))
                     self.assertIn(b'`verify_connection`', archive.read(connection))
+                    connection_guide = archive.read(connection)
+                    self.assertIn(b'`scripts/codex_oauth.py`', connection_guide)
+                    self.assertIn(b'`switch_team({teamId})`', connection_guide)
+                    self.assertIn(b'Switching Teams on an account grant does not start OAuth', connection_guide)
+                    launcher = next(name for name in archive.namelist() if name.endswith('skills/firmory-preview/scripts/codex_oauth.py'))
+                    self.assertIn(b'SERVER = "firmory_preview"', archive.read(launcher))
+                    self.assertIn(b'RESOURCE = "https://preview.firmory.ai/mcp"', archive.read(launcher))
+                    self.assertIn(b'"--scopes", "openid"', archive.read(launcher))
+                    reference_path = 'skills/firmory-preview/references/production-library.md'
+                    reference = next(name for name in archive.namelist() if name.endswith(reference_path))
+                    skill = reference.removesuffix('references/production-library.md') + 'SKILL.md'
+                    activation = archive.read(skill)
+                    self.assertIn(b'(references/production-library.md#search-inspect-download-and-run-skills)', activation)
+                    self.assertIn(b'../firmory-preview-sync/SKILL.md', activation)
+                    self.assertIn('沉淀到 Firmory'.encode(), activation)
+                    guide = archive.read(reference)
+                    self.assertIn(b'Never upload a Skill ZIP as a fallback', guide)
+                    self.assertIn(b'https://app-preview.firmory.ai/#/skills/<item.id>', guide)
+                    self.assertNotIn(b'https://app.firmory.ai', guide)
+                    for tool in (
+                        b'`search_skills', b'`download_skill`', b'`public_read',
+                        b'`library_submit', b'`undo_save', b'`set_saving',
+                        b'`prepare_skill_share', b'`skill_share_status',
+                        b'`get_resource_link', b'`set_skill_sharing({ itemId, visibility: "public" })`',
+                        b'`read_shared_resource',
+                    ):
+                        self.assertIn(tool, guide)
+                    for kind in (b'skills', b'projects', b'files'):
+                        self.assertIn(b'/shared/' + kind + b'/{resourceId}/{key}', guide)
+                    self.assertIn(b'#turn-a-task-into-a-skill', activation)
+                    self.assertIn(b'#share-a-skill-from-chat', activation)
+                    self.assertIn(b'#search-inspect-download-and-run-skills', activation)
                     if path.name.endswith('-codex.zip'):
-                        self.assertIn(b'https://preview.firmory.ai/mcp', archive.read('README.md'))
+                        manifest = json.loads(archive.read('plugin.json'))
+                        self.assertEqual(path.name, f"firmory-preview-{manifest['version']}-codex.zip")
+                        readme = archive.read('README.md')
+                        self.assertIn(b'https://preview.firmory.ai/mcp', readme)
+                        self.assertIn(b'choose **Firmory Preview**', readme)
+                        self.assertNotIn(b'codex plugin marketplace add DepsilonAI/firmory-plugins', readme)
+                    for name in archive.namelist():
+                        if name.endswith('hooks/sync_reminder.py'):
+                            self.assertIn(b'follow the firmory-preview-sync skill', archive.read(name))
 
     def test_codex_zip_is_one_uploadable_plugin(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -52,6 +113,7 @@ class DistributionTests(unittest.TestCase):
                 manifest = json.loads(archive.read('plugin.json'))
                 self.assertEqual((manifest['name'], manifest['version']), ('firmory', '1.0.1'))
                 metadata = manifest['extensions']['com.openai']
+                self.assertEqual(metadata['interface']['displayName'], 'Firmory')
                 self.assertNotIn('review', metadata)
                 self.assertNotIn('onboardingSkill', metadata)
                 for path in [metadata['interface']['logo'], metadata['interface']['composerIcon']]:
@@ -61,8 +123,11 @@ class DistributionTests(unittest.TestCase):
                     'type': 'streamable-http', 'url': 'https://firmory.ai/mcp',
                 }})
                 self.assertIn('skills/firmory/SKILL.md', names)
+                self.assertNotIn(b'`resourceUrl`', archive.read('skills/firmory/SKILL.md'))
                 self.assertNotIn('skills/setup/SKILL.md', names)
                 self.assertIn('skills/firmory/references/connection.md', names)
+                self.assertIn('skills/firmory/references/production-library.md', names)
+                self.assertIn('skills/firmory/scripts/codex_oauth.py', names)
                 self.assertIn('skills/sync/SKILL.md', names)
                 self.assertIn('hooks/hooks.json', names)
                 self.assertIn('hooks/sync_reminder.py', names)
@@ -95,7 +160,7 @@ class DistributionTests(unittest.TestCase):
                 self.assertEqual(public.read('mcp.json'), marketplace.read('plugins/firmory/mcp.json'))
                 review_server = json.loads(review.read('mcp.json'))['mcpServers']['firmory_cloud']
                 self.assertEqual(review_server['extensions']['com.openai']['auth'], {
-                    'type': 'oauth', 'client': {'mode': 'cimd'}, 'baseScopes': ['user:org:read'],
+                    'type': 'oauth', 'client': {'mode': 'cimd'}, 'baseScopes': ['openid'],
                 })
                 self.assertEqual(review_server['url'], 'https://firmory.ai/mcp')
                 self.assertNotIn('review', json.loads(public.read('plugin.json'))['extensions']['com.openai'])

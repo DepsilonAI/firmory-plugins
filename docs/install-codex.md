@@ -3,14 +3,9 @@
 [Illustrated installation guide](https://firmory.ai/download#codex) · [Releases](https://github.com/DepsilonAI/firmory-plugins/releases)
 
 1. Install Codex with plugin support and sign in to your account.
-2. Open **Customize → Plugins** in Codex. Drag `firmory-1.1.4-codex.zip` into that page and follow the installation prompts. Keep the ZIP compressed; no extraction is needed.
-3. Connect Firmory in your client's MCP settings. If needed, run this in the terminal.
-
-```sh
-codex -c 'mcp_servers.firmory_cloud.url="https://firmory.ai/mcp"' mcp login firmory_cloud --scopes user:org:read --oauth-client-registration cimd
-```
-
-4. In the browser, sign in to Firmory, select your team and allow access. Ask "Show me the projects and files available in my workspace". Firmory verifies the team while answering; no separate setup question is needed.
+2. Open **Customize → Plugins** in Codex. Drag the Firmory Codex ZIP into that page and follow the installation prompts. Keep the ZIP compressed; no extraction is needed.
+3. In a new Codex chat, select **Firmory** and ask "Show me the projects and files available in my workspace". When sign-in is needed, the plugin starts Codex's browser authorization from the task.
+4. In the browser, sign in to your Firmory account and allow access. Return to Codex to select a team. You can say "Switch to the Design team" or "Switch my Firmory account" to use another authorized team or account.
 5. Ask a first question.
 
 - Show me the projects and files available in my workspace
@@ -27,6 +22,10 @@ codex plugin add firmory@firmory-plugins
 ```
 
 This ZIP connects to https://firmory.ai/mcp using browser sign-in. It can read the files your team permits and save changes when you ask. [Privacy](https://firmory.ai/privacy) · [Terms](https://firmory.ai/terms).
+
+## Capture work as a Skill
+
+Ask `@Firmory` to do a task and capture it in Firmory, then work through the task in the same chat. Reusable materials go to the project's production library as they become ready. At the end, Codex saves a Skill with the method and links to its materials. Ask for a link others can reuse to enable public sharing. They can paste that link into a new chat along with their own task.
 
 ## Sync reminders
 

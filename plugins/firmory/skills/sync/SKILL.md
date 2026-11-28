@@ -9,6 +9,8 @@ description: Manage local changes with contextual sync choices, scoped reminder 
 
 Apply this workflow only to actual local deliverable changes during a Firmory-connected task. Group changes at task completion; do not interrupt each edit. Skip reads, failed/no-op edits, temporary/build/dependency files, preference files, and versions already accepted by Firmory. Do not search unrelated folders for changes. Hooks cannot observe external editors or arbitrary shell writes; apply the same workflow to shell changes only when the agent actually observed them.
 
+For a request to capture work in Firmory, including “do this, then capture it in Firmory”, follow [Turn a task into a Skill](../firmory/references/production-library.md#turn-a-task-into-a-skill). The request already covers uploading its reusable assets to the verified project and submitting a Skill. Use the sync choices below only for other local deliverables.
+
 The user's latest instruction takes precedence over saved preferences. "Local only", "edit locally first", "do not upload", or "later" means finish the local work, report its unsynced status, and do not immediately ask about syncing or upload it. Do not defer an explicitly local-only edit into an automatic upload on a later turn. It remains excluded until the user explicitly includes it. "Sync now" authorizes the identified changes once, not future uploads. Never interpret a displayed, preselected, or unanswered option as consent.
 
 ## One compact decision
@@ -41,7 +43,7 @@ Allowed modes are `ask`, `auto_linked`, and `manual`. Validate the version, fiel
 
 ## Save safely and finish clearly
 
-1. Call `workspace` before writing and verify the actual authorized team and user. Reuse the agreed destination; otherwise resolve it using fresh `search` / `browse_folder` results. If it differs from the approved scope, stop and ask. Never reauthorize just to sync inside the same team, or switch teams silently.
+1. Call `workspace` before writing and verify the authorized Team and user. If the connection needs login or Team selection, follow [Connect Firmory](../firmory/references/connection.md) for the requested sync. Reuse the agreed destination or resolve it using fresh `search` / `browse_folder` calls. If it differs from the approved scope, stop and ask. When advertised, pass the verified `team.id` as `expectedTeamId` on every write.
 2. Re-read the selected local files. Keep an exact file-to-node association and the remote base version from the task, not filename matching alone. After reopening a conversation, do not resume automatic sync until these associations and base versions are known again. Exclude unrelated files, secrets, and explicitly local-only changes. If an excluded local-only change and a later automatic-mode edit share a file, require explicit approval of that file's full pending contents before upload.
 3. Use existing tools: `write_text` for supported text, or `prepare_upload` with the returned transfer instructions. Use the actual schemas. For a new file, check collisions and confirm its destination. If the host cannot transfer bytes, explain the limitation and provide a real upload entry when available. A local deletion is not permission to delete remotely.
 4. For an update, read the current remote version and compare with the recorded base. Use the write precondition. A newer remote version or unknown base requires a conflict decision; automatic mode never silently overwrites it. Declare only the exact source versions actually used. Do not create a second file as a retry workaround.
